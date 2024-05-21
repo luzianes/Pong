@@ -20,8 +20,8 @@ void keyboardInit()
 {
     tcgetattr(0, &initialSettings);  // Obtém as configurações atuais do terminal
     newSettings = initialSettings;   // Copia as configurações atuais
-    newSettings.c_lflag &= ~ICANON;  // Desativa o modo canônico
-    newSettings.c_lflag &= ~ECHO;    // Desativa a exibição dos caracteres digitados
+    newSettings.c_lflag &= ~ICANON;  // Desativa o modo canônico (buffering de entrada)
+    newSettings.c_lflag &= ~ECHO;    // Desativa a exibição dos caracteres digitados (eco das teclas digitadas)
     newSettings.c_lflag &= ~ISIG;    // Desativa sinais de interrupção (Ctrl+C, Ctrl+Z)
     newSettings.c_cc[VMIN] = 1;      // Mínimo de caracteres para leitura
     newSettings.c_cc[VTIME] = 0;     // Tempo de espera para leitura (desativado)
@@ -31,7 +31,7 @@ void keyboardInit()
 // Restaura as configurações originais do teclado
 void keyboardDestroy()
 {
-    tcsetattr(0, TCSANOW, &initialSettings); // Restaura as configurações originais
+    tcsetattr(0, TCSANOW, &initialSettings); // Restaura as configurações originais do terminal
 }
 
 // Verifica se uma tecla foi pressionada
@@ -42,10 +42,10 @@ int keyhit()
 
     if (peekCharacter != -1) return 1; // Se há um caractere armazenado, retorna verdadeiro
     
-    newSettings.c_cc[VMIN]=0; // Muda para modo não bloqueante
+    newSettings.c_cc[VMIN]=0; // Muda o terminal para modo de leitura não bloqueante
     tcsetattr(0, TCSANOW, &newSettings);
     nread = read(0,&ch,1); // Tenta ler um caractere
-    newSettings.c_cc[VMIN]=1; // Restaura o modo de leitura
+    newSettings.c_cc[VMIN]=1; // Restaura o modo de leitura original
     tcsetattr(0, TCSANOW, &newSettings);
     
     if(nread == 1) 
@@ -65,8 +65,8 @@ int readch()
     if (peekCharacter != -1)
     {
         ch = peekCharacter;          // Usa o caractere armazenado se disponível
-        peekCharacter = -1;          // Reseta o buffer
-        return ch;                   // Retorna o caractere lido
+        peekCharacter = -1;          // Reseta o buffer - se há uma tecla armazenada, retorna-a
+        return ch;
     }
     read(0, &ch, 1);                 // Lê um caractere do terminal
     return ch;                       // Retorna o caractere lido
