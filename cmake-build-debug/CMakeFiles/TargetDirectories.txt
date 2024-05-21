@@ -1,0 +1,3 @@
+C:/PIF/Jogo/Pong/cmake-build-debug/CMakeFiles/pong.dir
+C:/PIF/Jogo/Pong/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/PIF/Jogo/Pong/cmake-build-debug/CMakeFiles/rebuild_cache.dir

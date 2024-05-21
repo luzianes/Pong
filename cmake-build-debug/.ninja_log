@@ -1,0 +1,4 @@
+# ninja log v5
+3	183	7377643320382741	CMakeFiles/pong.dir/main.c.obj	44091d1a895baf96
+33	186	7377643320412211	CMakeFiles/pong.dir/cli-lib/src/screen.c.obj	ed02ad74c0ffb7c2
+47	195	7377643320508516	CMakeFiles/pong.dir/cli-lib/src/timer.c.obj	d82349af35419e16
