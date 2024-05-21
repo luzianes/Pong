@@ -7,73 +7,73 @@
 
 #include "screen.h"
 
-void screenDrawBorders() 
+void screenDrawBorders() // Desenhar bordas ao redor da área de desenho
 {
-    char hbc = BOX_HLINE;
-    char vbc = BOX_VLINE;
-    
-    screenClear();
-    screenBoxEnable();
-    
-    screenGotoxy(MINX, MINY);
-    printf("%c", BOX_UPLEFT);
+    char hbc = BOX_HLINE; // Caractere de linha horizontal
+    char vbc = BOX_VLINE; // Caractere de linha vertical
+
+    screenClear(); // Limpa a tela
+    screenBoxEnable(); // Habilita o modo de desenho de caixa
+
+    screenGotoxy(MINX, MINY); // Move o cursor para a posição (MINX, MINY)
+    printf("%c", BOX_UPLEFT); // Desenha o canto superior esquerdo
 
     for (int i=MINX+1; i<MAXX; i++)
     {
         screenGotoxy(i, MINY);
-        printf("%c", hbc);
+        printf("%c", hbc); // Desenha a linha superior
     }
     screenGotoxy(MAXX, MINY);
-    printf("%c", BOX_UPRIGHT);
+    printf("%c", BOX_UPRIGHT); // Desenha o canto superior direito
 
     for (int i=MINY+1; i<MAXY; i++)
     {
         screenGotoxy(MINX, i);
-        printf("%c", vbc);
+        printf("%c", vbc); // Desenha as linhas verticais
         screenGotoxy(MAXX, i);
-        printf("%c", vbc);
+        printf("%c", vbc); // Desenha as linhas verticais
     }
 
-    screenGotoxy(MINX, MAXY);
-    printf("%c", BOX_DWNLEFT);
+    screenGotoxy(MINX, MAXY); // Desenha a linha inferior
+    printf("%c", BOX_DWNLEFT); // Desenha o canto inferior esquerdo
     for (int i=MINX+1; i<MAXX; i++)
     {
         screenGotoxy(i, MAXY);
         printf("%c", hbc);
     }
     screenGotoxy(MAXX, MAXY);
-    printf("%c", BOX_DWNRIGHT);
+    printf("%c", BOX_DWNRIGHT); // Desenha o canto inferior direito
 
-    screenBoxDisable();
-    
+    screenBoxDisable(); // Desabilita o modo de desenho de caixa
+
 }
 
-void screenInit(int drawBorders)
+void screenInit(int drawBorders) // Inicializar a tela
 {
-    screenClear();
-    if (drawBorders) screenDrawBorders();
-    screenHomeCursor();
-    screenHideCursor();
+    screenClear(); // Limpa a tela
+    if (drawBorders) screenDrawBorders(); // Desenha as bordas se solicitado
+    screenHomeCursor(); // Move o cursor para a posição inicial
+    screenHideCursor(); // Esconde o cursor
 }
 
-void screenDestroy()
+void screenDestroy() // Restaurar o estado inicial da tela
 {
     printf("%s[0;39;49m", ESC); // Reset colors
-    screenSetNormal();
-    screenClear();
-    screenHomeCursor();
-    screenShowCursor();
+    screenSetNormal(); // Define o texto como normal
+    screenClear(); // Limpa a tela
+    screenHomeCursor(); // Move o cursor para a posição inicial
+    screenShowCursor(); // Mostra o cursor
 }
 
-void screenGotoxy(int x, int y)
+void screenGotoxy(int x, int y) // Move o cursor para a posição específica
 {
     x = ( x<0 ? 0 : x>=MAXX ? MAXX-1 : x);
     y = ( y<0 ? 0 : y>MAXY ? MAXY : y);
-    
+
     printf("%s[f%s[%dB%s[%dC", ESC, ESC, y, ESC, x);
 }
 
-void screenSetColor( screenColor fg, screenColor bg)
+void screenSetColor( screenColor fg, screenColor bg) // Definir as cores do texto e do fundo
 {
     char atr[] = "[0;";
 
