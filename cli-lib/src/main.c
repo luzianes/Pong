@@ -33,7 +33,7 @@ void printKey(int ch)
 
     screenGotoxy(34, 23);
     printf("            ");
-    
+
     if (ch == 27) screenGotoxy(36, 23);
     else screenGotoxy(39, 23);
 
@@ -44,7 +44,7 @@ void printKey(int ch)
     }
 }
 
-int main() 
+int main()
 {
     static int ch = 0;
 
@@ -58,7 +58,7 @@ int main()
     while (ch != 10) //enter
     {
         // Handle user input
-        if (keyhit()) 
+        if (keyhit())
         {
             ch = readch();
             printKey(ch);
