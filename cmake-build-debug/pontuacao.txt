@@ -1,2 +1,2 @@
-Jogador 1: 0
-Jogador 2: 1
+Jogador 1: 4
+Jogador 2: 5

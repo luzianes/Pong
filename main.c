@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/time.h>
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
@@ -31,6 +33,12 @@ int qtde_raquete = 2;
 int jogador1 = 0;
 int jogador2 = 0;
 
+// Define o tempo máximo em segundos (2 minutos)
+#define TEMPO_MAXIMO 150
+
+// Estrutura para armazenar o tempo de início
+struct timeval tempoInicio;
+
 // Função que movimenta a bola no terminal
 void printBola(int nextX, int nextY) {
     screenSetColor(CYAN, DARKGRAY);
@@ -39,7 +47,7 @@ void printBola(int nextX, int nextY) {
     x = nextX;
     y = nextY;
     screenGotoxy(x, y);
-    printf("O");
+    printf("●");  // Usando a bolinha Unicode
 }
 
 // Inicializa a raquete com seus parâmetros
@@ -103,6 +111,41 @@ void salvar_pontuacao(int jogador1, int jogador2) {
     }
 }
 
+// Função para exibir a pontuação dos jogadores
+void exibirPontuacao() {
+    screenSetColor(YELLOW, DARKGRAY);
+    screenGotoxy((MAXX / 4) - 1, MAXY - 1);
+    printf("%d", jogador1);
+    screenGotoxy((3 * MAXX / 4) - 1, MAXY - 1);
+    printf("%d", jogador2);
+}
+
+// Função para calcular o tempo restante e exibir no canto superior central
+void exibirTimer() {
+    struct timeval tempoAtual;
+    gettimeofday(&tempoAtual, NULL);
+    long tempoPassado = (tempoAtual.tv_sec - tempoInicio.tv_sec);
+    long tempoRestante = TEMPO_MAXIMO - tempoPassado;
+
+    if (tempoRestante < 0) {
+        tempoRestante = 0;
+    }
+
+    screenSetColor(GREEN, DARKGRAY);
+    screenGotoxy((MAXX / 2) - 3, MINY);  // Ajuste a posição para que o ":" fique alinhado com a linha pontilhada
+    printf("%02ld:%02ld", tempoRestante / 60, tempoRestante % 60);
+}
+
+// Função para exibir a tela de resultados
+void exibirResultado(const char *mensagem) {
+    screenClear();
+    screenSetColor(RED, DARKGRAY);
+    screenGotoxy((MAXX / 2) - (strlen(mensagem) / 2), MAXY / 2);
+    printf("%s", mensagem);
+    screenUpdate();
+    sleep(3); // Espera 3 segundos antes de encerrar
+}
+
 int main() {
     static int ch = 0;
 
@@ -113,6 +156,8 @@ int main() {
     desenharLinhaPontilhada();
     keyboardInit();
     timerInit(50);
+
+    gettimeofday(&tempoInicio, NULL); // Obtém o tempo de início
 
     printBola(x, y);
 
@@ -158,16 +203,18 @@ int main() {
             // Verifica se houve colisão com a moldura
             int newX = x + incX;
             int newY = y + incY;
+
+            // Verifica se a bola atingiu as paredes laterais (pontuação do adversário)
             if (newX >= (MAXX - strlen("O") - 1)) {
-                incX = -incX;
                 jogador1++; // Jogador 1 pontua
                 newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
                 newY = (MAXY - MINY) / 2;
+                incX = -incX; // Inverte a direção da bola
             } else if (newX <= MINX + 1) {
-                incX = -incX;
                 jogador2++; // Jogador 2 pontua
                 newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
                 newY = (MAXY - MINY) / 2;
+                incX = -incX; // Inverte a direção da bola
             }
 
             if (newY >= MAXY - 1 || newY <= MINY + 1) {
@@ -178,12 +225,6 @@ int main() {
             for (int i = 0; i < qtde_raquete; i++) {
                 if (verificar_colisao(&rptr[i], newX, newY)) {
                     incX = -incX;
-                    // Aumenta a pontuação do jogador que conseguiu rebater a bola
-                    if (i == 0) {
-                        jogador1++;
-                    } else {
-                        jogador2++;
-                    }
                     break;
                 }
             }
@@ -194,7 +235,29 @@ int main() {
                 imprimir_raquete(&rptr[i]);
             }
 
+            exibirPontuacao();
+            exibirTimer();
+
             screenUpdate();
+
+            // Verifica condições de vitória
+            struct timeval tempoAtual;
+            gettimeofday(&tempoAtual, NULL);
+            long tempoPassado = (tempoAtual.tv_sec - tempoInicio.tv_sec);
+
+            if (jogador1 >= 5 || jogador2 >= 5 || tempoPassado >= TEMPO_MAXIMO) {
+                char mensagem[50];
+                if (jogador1 > jogador2) {
+                    snprintf(mensagem, sizeof(mensagem), "Jogador 1 ganhou!");
+                } else if (jogador2 > jogador1) {
+                    snprintf(mensagem, sizeof(mensagem), "Jogador 2 ganhou!");
+                } else {
+                    snprintf(mensagem, sizeof(mensagem), "Empate!");
+                }
+
+                exibirResultado(mensagem);
+                break;
+            }
         }
     }
 
