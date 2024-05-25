@@ -1,4 +1,3 @@
-
 /**
  * main.c
  * Created on Mai, 21th 2024
@@ -38,6 +37,70 @@ int jogador2 = 0;
 
 // Estrutura para armazenar o tempo de início
 struct timeval tempoInicio;
+
+// Função para exibir a tela inicial
+void exibirTelaInicial() {
+    screenClear();
+    screenDrawBorders();
+    screenSetColor(WHITE, DARKGRAY);
+    screenGotoxy((MAXX / 2) - 11, MAXY / 2 - 4);
+    printf("  ____    ____  _   _  ____  ");
+    screenGotoxy((MAXX / 2) - 11, MAXY / 2 - 3);
+    printf(" |  __ \\ / __ \\| \\ | |/ __ \\ ");
+    screenGotoxy((MAXX / 2) - 11, MAXY / 2 - 2);
+    printf(" | |__) | |  | |  \\| | | ___");
+    screenGotoxy((MAXX / 2) - 11, MAXY / 2 - 1);
+    printf(" |  ___/| |  | | . ` | ||__ | ");
+    screenGotoxy((MAXX / 2) - 11, MAXY / 2);
+    printf(" | |    | |__| | |\\  | |__| |");
+    screenGotoxy((MAXX / 2) - 11, MAXY / 2 + 1);
+    printf(" |_|     \\____/|_| \\_|\\____/ ");
+
+    screenGotoxy((MAXX / 2) - 5, MAXY / 2 + 3);
+    screenSetColor(YELLOW, DARKGRAY);
+    printf("▶ Começar");
+    screenUpdate();
+
+    while (1) {
+        int ch = readch();
+        if (ch == 10) { // Enter
+            break;
+        }
+    }
+}
+
+// Função para exibir o menu de seleção de nível
+int exibirMenuNiveis() {
+    const char *niveis[] = {"Iniciante", "Intermediário", "Avançado", "Expert"};
+    int opcao = 0;
+
+    while (1) {
+        screenClear();
+        screenDrawBorders();
+        for (int i = 0; i < 4; i++) {
+            screenGotoxy((MAXX / 2) - 6, (MAXY / 2) - 2 + i);
+            if (i == opcao) {
+                screenSetColor(YELLOW, DARKGRAY);
+                printf("▶ %s", niveis[i]);
+                screenSetColor(WHITE, DARKGRAY); // Reseta a cor após imprimir a linha selecionada
+            } else {
+                screenSetColor(WHITE, DARKGRAY);
+                printf("  %s", niveis[i]);
+            }
+        }
+
+        screenUpdate();
+        int ch = readch();
+        if (ch == 10) { // Enter
+            break;
+        } else if (ch == 'A') {
+            opcao = (opcao > 0) ? opcao - 1 : 3; // Move para cima
+        } else if (ch == 'B') {
+            opcao = (opcao < 3) ? opcao + 1 : 0; // Move para baixo
+        }
+    }
+    return opcao;
+}
 
 // Função que movimenta a bola no terminal
 void printBola(int nextX, int nextY) {
@@ -149,12 +212,21 @@ void exibirResultado(const char *mensagem) {
 int main() {
     static int ch = 0;
 
+    keyboardInit();
+
+    // Exibe a tela inicial
+    exibirTelaInicial();
+
+    // Exibe o menu de níveis
+    int nivel = exibirMenuNiveis();
+
+    // Configurações adicionais baseadas no nível podem ser adicionadas aqui, se necessário
+
     // Aloca memória para as raquetes
     raquete *rptr = (raquete *)malloc(qtde_raquete * sizeof(raquete));
 
     screenInit(1);
     desenharLinhaPontilhada();
-    keyboardInit();
     timerInit(50);
 
     gettimeofday(&tempoInicio, NULL); // Obtém o tempo de início
@@ -271,4 +343,3 @@ int main() {
 
     return 0;
 }
-
