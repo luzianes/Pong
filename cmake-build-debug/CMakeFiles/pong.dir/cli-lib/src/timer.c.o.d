@@ -1,6 +1,7 @@
 CMakeFiles/pong.dir/cli-lib/src/timer.c.o: \
- /mnt/c/PIF/Jogo/Pong/cli-lib/src/timer.c /usr/include/stdc-predef.h \
- /mnt/c/PIF/Jogo/Pong/cli-lib/include/timer.h \
+ /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/timer.c \
+ /usr/include/stdc-predef.h \
+ /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/timer.h \
  /usr/include/x86_64-linux-gnu/sys/time.h /usr/include/features.h \
  /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \

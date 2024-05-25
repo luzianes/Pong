@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/c/PIF/Jogo/Pong
+CMAKE_SOURCE_DIR = /mnt/c/Users/lisa_/ClionProjects/Pong
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/c/PIF/Jogo/Pong/cmake-build-debug
+CMAKE_BINARY_DIR = /mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/pong.dir/depend.make
@@ -72,58 +72,58 @@ include CMakeFiles/pong.dir/flags.make
 CMakeFiles/pong.dir/main.c.o: CMakeFiles/pong.dir/flags.make
 CMakeFiles/pong.dir/main.c.o: ../main.c
 CMakeFiles/pong.dir/main.c.o: CMakeFiles/pong.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/PIF/Jogo/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/pong.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pong.dir/main.c.o -MF CMakeFiles/pong.dir/main.c.o.d -o CMakeFiles/pong.dir/main.c.o -c /mnt/c/PIF/Jogo/Pong/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/pong.dir/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pong.dir/main.c.o -MF CMakeFiles/pong.dir/main.c.o.d -o CMakeFiles/pong.dir/main.c.o -c /mnt/c/Users/lisa_/ClionProjects/Pong/main.c
 
 CMakeFiles/pong.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/pong.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/PIF/Jogo/Pong/main.c > CMakeFiles/pong.dir/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/Users/lisa_/ClionProjects/Pong/main.c > CMakeFiles/pong.dir/main.c.i
 
 CMakeFiles/pong.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/pong.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/PIF/Jogo/Pong/main.c -o CMakeFiles/pong.dir/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/Users/lisa_/ClionProjects/Pong/main.c -o CMakeFiles/pong.dir/main.c.s
 
 CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o: CMakeFiles/pong.dir/flags.make
 CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o: ../cli-lib/src/keyboard.c
 CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o: CMakeFiles/pong.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/PIF/Jogo/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o -MF CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o.d -o CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o -c /mnt/c/PIF/Jogo/Pong/cli-lib/src/keyboard.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o -MF CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o.d -o CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o -c /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/keyboard.c
 
 CMakeFiles/pong.dir/cli-lib/src/keyboard.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/pong.dir/cli-lib/src/keyboard.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/PIF/Jogo/Pong/cli-lib/src/keyboard.c > CMakeFiles/pong.dir/cli-lib/src/keyboard.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/keyboard.c > CMakeFiles/pong.dir/cli-lib/src/keyboard.c.i
 
 CMakeFiles/pong.dir/cli-lib/src/keyboard.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/pong.dir/cli-lib/src/keyboard.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/PIF/Jogo/Pong/cli-lib/src/keyboard.c -o CMakeFiles/pong.dir/cli-lib/src/keyboard.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/keyboard.c -o CMakeFiles/pong.dir/cli-lib/src/keyboard.c.s
 
 CMakeFiles/pong.dir/cli-lib/src/screen.c.o: CMakeFiles/pong.dir/flags.make
 CMakeFiles/pong.dir/cli-lib/src/screen.c.o: ../cli-lib/src/screen.c
 CMakeFiles/pong.dir/cli-lib/src/screen.c.o: CMakeFiles/pong.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/PIF/Jogo/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/pong.dir/cli-lib/src/screen.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pong.dir/cli-lib/src/screen.c.o -MF CMakeFiles/pong.dir/cli-lib/src/screen.c.o.d -o CMakeFiles/pong.dir/cli-lib/src/screen.c.o -c /mnt/c/PIF/Jogo/Pong/cli-lib/src/screen.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/pong.dir/cli-lib/src/screen.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pong.dir/cli-lib/src/screen.c.o -MF CMakeFiles/pong.dir/cli-lib/src/screen.c.o.d -o CMakeFiles/pong.dir/cli-lib/src/screen.c.o -c /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/screen.c
 
 CMakeFiles/pong.dir/cli-lib/src/screen.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/pong.dir/cli-lib/src/screen.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/PIF/Jogo/Pong/cli-lib/src/screen.c > CMakeFiles/pong.dir/cli-lib/src/screen.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/screen.c > CMakeFiles/pong.dir/cli-lib/src/screen.c.i
 
 CMakeFiles/pong.dir/cli-lib/src/screen.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/pong.dir/cli-lib/src/screen.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/PIF/Jogo/Pong/cli-lib/src/screen.c -o CMakeFiles/pong.dir/cli-lib/src/screen.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/screen.c -o CMakeFiles/pong.dir/cli-lib/src/screen.c.s
 
 CMakeFiles/pong.dir/cli-lib/src/timer.c.o: CMakeFiles/pong.dir/flags.make
 CMakeFiles/pong.dir/cli-lib/src/timer.c.o: ../cli-lib/src/timer.c
 CMakeFiles/pong.dir/cli-lib/src/timer.c.o: CMakeFiles/pong.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/PIF/Jogo/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/pong.dir/cli-lib/src/timer.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pong.dir/cli-lib/src/timer.c.o -MF CMakeFiles/pong.dir/cli-lib/src/timer.c.o.d -o CMakeFiles/pong.dir/cli-lib/src/timer.c.o -c /mnt/c/PIF/Jogo/Pong/cli-lib/src/timer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/pong.dir/cli-lib/src/timer.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pong.dir/cli-lib/src/timer.c.o -MF CMakeFiles/pong.dir/cli-lib/src/timer.c.o.d -o CMakeFiles/pong.dir/cli-lib/src/timer.c.o -c /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/timer.c
 
 CMakeFiles/pong.dir/cli-lib/src/timer.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/pong.dir/cli-lib/src/timer.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/PIF/Jogo/Pong/cli-lib/src/timer.c > CMakeFiles/pong.dir/cli-lib/src/timer.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/timer.c > CMakeFiles/pong.dir/cli-lib/src/timer.c.i
 
 CMakeFiles/pong.dir/cli-lib/src/timer.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/pong.dir/cli-lib/src/timer.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/PIF/Jogo/Pong/cli-lib/src/timer.c -o CMakeFiles/pong.dir/cli-lib/src/timer.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/timer.c -o CMakeFiles/pong.dir/cli-lib/src/timer.c.s
 
 # Object files for target pong
 pong_OBJECTS = \
@@ -141,7 +141,7 @@ pong: CMakeFiles/pong.dir/cli-lib/src/screen.c.o
 pong: CMakeFiles/pong.dir/cli-lib/src/timer.c.o
 pong: CMakeFiles/pong.dir/build.make
 pong: CMakeFiles/pong.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/PIF/Jogo/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable pong"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable pong"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pong.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -153,6 +153,6 @@ CMakeFiles/pong.dir/clean:
 .PHONY : CMakeFiles/pong.dir/clean
 
 CMakeFiles/pong.dir/depend:
-	cd /mnt/c/PIF/Jogo/Pong/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/c/PIF/Jogo/Pong /mnt/c/PIF/Jogo/Pong /mnt/c/PIF/Jogo/Pong/cmake-build-debug /mnt/c/PIF/Jogo/Pong/cmake-build-debug /mnt/c/PIF/Jogo/Pong/cmake-build-debug/CMakeFiles/pong.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/c/Users/lisa_/ClionProjects/Pong /mnt/c/Users/lisa_/ClionProjects/Pong /mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug /mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug /mnt/c/Users/lisa_/ClionProjects/Pong/cmake-build-debug/CMakeFiles/pong.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/pong.dir/depend
 

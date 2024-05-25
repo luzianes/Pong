@@ -80,6 +80,17 @@ int verificar_colisao(raquete *rptr, int Ox, int Oy) {
     return 0; // Não houve colisão com a raquete
 }
 
+// Função para desenhar a linha pontilhada no meio da tela
+void desenharLinhaPontilhada() {
+    screenSetColor(WHITE, DARKGRAY);
+    for (int i = MINY + 1; i < MAXY; i++) {
+        if (i % 2 == 0) {
+            screenGotoxy((MAXX - MINX) / 2, i);
+            printf("|");
+        }
+    }
+}
+
 // Função para salvar a pontuação dos jogadores em um arquivo
 void salvar_pontuacao(int jogador1, int jogador2) {
     FILE *file = fopen("pontuacao.txt", "w");
@@ -99,6 +110,7 @@ int main() {
     raquete *rptr = (raquete *)malloc(qtde_raquete * sizeof(raquete));
 
     screenInit(1);
+    desenharLinhaPontilhada();
     keyboardInit();
     timerInit(50);
 
@@ -145,9 +157,22 @@ int main() {
         if (timerTimeOver() == 1) {
             // Verifica se houve colisão com a moldura
             int newX = x + incX;
-            if (newX >= (MAXX - strlen("O") - 1) || newX <= MINX + 1) incX = -incX;
             int newY = y + incY;
-            if (newY >= MAXY - 1 || newY <= MINY + 1) incY = -incY;
+            if (newX >= (MAXX - strlen("O") - 1)) {
+                incX = -incX;
+                jogador1++; // Jogador 1 pontua
+                newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
+                newY = (MAXY - MINY) / 2;
+            } else if (newX <= MINX + 1) {
+                incX = -incX;
+                jogador2++; // Jogador 2 pontua
+                newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
+                newY = (MAXY - MINY) / 2;
+            }
+
+            if (newY >= MAXY - 1 || newY <= MINY + 1) {
+                incY = -incY;
+            }
 
             // Verifica se houve colisão com as raquetes
             for (int i = 0; i < qtde_raquete; i++) {
