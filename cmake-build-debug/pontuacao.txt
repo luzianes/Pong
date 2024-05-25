@@ -1,0 +1,2 @@
+Jogador 1: 0
+Jogador 2: 1
