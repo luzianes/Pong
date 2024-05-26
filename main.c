@@ -13,6 +13,7 @@
 #include "keyboard.h"
 #include "timer.h"
 
+// REQUISITO 1 - STRUCT
 // Define a struct Raquete com seus elementos (typedef cria um alias (raquete))
 typedef struct Raquete {
     int x, y;     // posição (x, y) da raquete
@@ -69,6 +70,7 @@ void exibirTelaInicial() {
     }
 }
 
+// REQUISITO 2 - PONTEIROS
 // Função para exibir o menu de seleção de nível
 int exibirMenuNiveis() {
     const char *niveis[] = {"Iniciante", "Intermediário", "Avançado", "Expert"};
@@ -162,6 +164,8 @@ void desenharLinhaPontilhada() {
     }
 }
 
+// REQUISITO 2 - PONTEIROS
+// REQUISITO 6 - ESCRITA ARQUIVO
 // Função para salvar a pontuação dos jogadores em um arquivo
 void salvar_pontuacao(int jogador1, int jogador2) {
     FILE *file = fopen("pontuacao.txt", "w");
@@ -220,24 +224,32 @@ int main() {
     // Exibe o menu de níveis
     int nivel = exibirMenuNiveis();
 
-    // Configurações adicionais baseadas no nível podem ser adicionadas aqui, se necessário
+    // Ajusta configurações baseadas no nível
+    int alturaRaquete = 6;
+    int velocidadeBola = 70;
 
+    if (nivel == 1) { // Intermediário
+        alturaRaquete = 4;
+    } else if (nivel == 2) { // Avançado
+        alturaRaquete = 4;
+        velocidadeBola = 60;
+    }
+
+    // REQUISITO 3 - ALOCAÇÃO DE MEMÓRIA
     // Aloca memória para as raquetes
     raquete *rptr = (raquete *)malloc(qtde_raquete * sizeof(raquete));
 
     screenInit(1);
     desenharLinhaPontilhada();
-    timerInit(50);
+    timerInit(velocidadeBola);
 
     gettimeofday(&tempoInicio, NULL); // Obtém o tempo de início
 
     printBola(x, y);
 
     // Inicia as raquetes com a posição (x,y), largura, altura e símbolo
-    iniciar_raquete(&rptr[0], 4, 10, 1, 10, '|');  // Raquete esquerda
-    iniciar_raquete(&rptr[1], 76, 10, 1, 10, '|'); // Raquete direita
-
-    screenUpdate();
+    iniciar_raquete(&rptr[0], 4, 10, 1, alturaRaquete, '|');  // Raquete esquerda
+    iniciar_raquete(&rptr[1], 76, 10, 1, alturaRaquete, '|'); // Raquete direita
 
     while (ch != 27) // Jogo ativo enquanto não teclar ESC
     {
@@ -249,18 +261,19 @@ int main() {
             apagar_raquete(&rptr[0]);
             apagar_raquete(&rptr[1]);
 
-            // Movimenta a raquete esquerda com 's' e 'd'
-            if (ch == 's' && rptr[0].y > MINY + 1) {
+            // Movimenta a raquete esquerda com 'w' ou 'W' e 's' ou 'S'
+            if ((ch == 'w' || ch == 'W') && rptr[0].y > MINY + 1) {
                 rptr[0].y--;
             }
-            if (ch == 'd' && rptr[0].y < MAXY - rptr[0].altura) {
+            if ((ch == 's' || ch == 'S') && rptr[0].y < MAXY - rptr[0].altura) {
                 rptr[0].y++;
             }
-            // Movimenta a raquete direita com 'k' e 'l'
-            if (ch == 'k' && rptr[1].y > MINY + 1) {
+
+            // Movimenta a raquete direita com 'o' ou 'O' e 'l' ou 'L'
+            if ((ch == 'o' || ch == 'O') && rptr[1].y > MINY + 1) { // Seta para cima (ASCII 65)
                 rptr[1].y--;
             }
-            if (ch == 'l' && rptr[1].y < MAXY - rptr[1].altura) {
+            if ((ch == 'l' || ch == 'L') && rptr[1].y < MAXY - rptr[1].altura) { // Seta para baixo (ASCII 66)
                 rptr[1].y++;
             }
 
@@ -317,6 +330,8 @@ int main() {
             gettimeofday(&tempoAtual, NULL);
             long tempoPassado = (tempoAtual.tv_sec - tempoInicio.tv_sec);
 
+            //Um buffer chamado mensagem é declarado com um tamanho de 50 caracteres
+            //Dependendo da pontuação dos jogadores, a mensagem correta é formatada e armazenada em mensagem usando snprintf
             if (jogador1 >= 5 || jogador2 >= 5 || tempoPassado >= TEMPO_MAXIMO) {
                 char mensagem[50];
                 if (jogador1 > jogador2) {
