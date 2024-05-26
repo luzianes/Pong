@@ -22,6 +22,16 @@ typedef struct Raquete {
     char simbolo; // símbolo que forma a raquete
 } raquete;
 
+// REQUISITO 1 - STRUCT
+// Define a struct Obstaculo com seus elementos (typedef cria um alias (obstaculo))
+typedef struct Obstaculo {
+    int x, y;        // posição (x, y) do obstáculo
+    int altura;      // altura do obstáculo
+    int direcao;     // direção de movimento (1 para baixo, -1 para cima)
+    char simbolo;    // símbolo que forma o obstáculo
+} obstaculo;
+
+
 // Define a posição inicial (x,y) da bola e seus incrementos (+1)
 int x = 34, y = 12;
 int incX = 1, incY = 1;
@@ -141,6 +151,23 @@ void apagar_raquete(raquete *rptr) {
     }
 }
 
+// Função para imprimir o obstáculo na tela
+void imprimir_obstaculo(obstaculo *optr) {
+    screenSetColor(RED, DARKGRAY);
+    for (int i = 0; i < optr->altura; i++) {
+        screenGotoxy(optr->x, optr->y + i);
+        printf("%c", optr->simbolo);
+    }
+}
+
+// Função para apagar o obstáculo da tela
+void apagar_obstaculo(obstaculo *optr) {
+    for (int i = 0; i < optr->altura; i++) {
+        screenGotoxy(optr->x, optr->y + i);
+        printf(" ");
+    }
+}
+
 // Função para verificar se houve colisão com a raquete
 int verificar_colisao(raquete *rptr, int Ox, int Oy) {
     for (int i = 0; i < rptr->altura; i++) {
@@ -151,6 +178,16 @@ int verificar_colisao(raquete *rptr, int Ox, int Oy) {
         }
     }
     return 0; // Não houve colisão com a raquete
+}
+
+// Função para verificar se houve colisão com o obstáculo
+int verificar_colisao_obstaculo(obstaculo *optr, int Ox, int Oy) {
+    for (int i = 0; i < optr->altura; i++) {
+        if (Ox == optr->x && Oy == optr->y + i) {
+            return 1; // Houve colisão com o obstáculo
+        }
+    }
+    return 0; // Não houve colisão com o obstáculo
 }
 
 // Função para desenhar a linha pontilhada no meio da tela
@@ -227,12 +264,25 @@ int main() {
     // Ajusta configurações baseadas no nível
     int alturaRaquete = 6;
     int velocidadeBola = 70;
+    int obstaculoAtivo = 0;
+    int pontuacaoMaxima = 5; // Padrão
+    obstaculo obst;
 
     if (nivel == 1) { // Intermediário
         alturaRaquete = 4;
     } else if (nivel == 2) { // Avançado
         alturaRaquete = 4;
         velocidadeBola = 60;
+    } else if (nivel == 3) { // Expert
+        alturaRaquete = 4;
+        velocidadeBola = 60;
+        pontuacaoMaxima = 10; // Pontuação máxima para nível Expert
+        obstaculoAtivo = 1;
+        obst.x = (MAXX - MINX) / 2; // Posição inicial no meio da tela
+        obst.y = 10;                // Posição inicial y
+        obst.altura = 5;            // Altura do obstáculo para nível Expert
+        obst.direcao = 1;           // Começa se movendo para baixo
+        obst.simbolo = '#';         // Símbolo do obstáculo
     }
 
     // REQUISITO 3 - ALOCAÇÃO DE MEMÓRIA
@@ -253,7 +303,7 @@ int main() {
 
     while (ch != 27) // Jogo ativo enquanto não teclar ESC
     {
-        // Verifica a entrada do usuário (tecla clicada) ---> IMPLEMENTAR MENU?
+        // Verifica a entrada do usuário (tecla clicada)
         if (keyhit()) {
             ch = readch();
 
@@ -270,7 +320,7 @@ int main() {
             }
 
             // Movimenta a raquete direita com 'o' ou 'O' e 'l' ou 'L'
-            if ((ch == 'o' || ch == 'O') && rptr[1].y > MINY + 1) { // Seta para cima (ASCII 65)
+            if ((ch == 'o' || ch == 'O')  && rptr[1].y > MINY + 1) { // Seta para cima (ASCII 65)
                 rptr[1].y--;
             }
             if ((ch == 'l' || ch == 'L') && rptr[1].y < MAXY - rptr[1].altura) { // Seta para baixo (ASCII 66)
@@ -314,6 +364,21 @@ int main() {
                 }
             }
 
+            // Verifica se houve colisão com o obstáculo
+            if (obstaculoAtivo && verificar_colisao_obstaculo(&obst, newX, newY)) {
+                incX = -incX;
+            }
+
+            // Atualiza a posição do obstáculo se ativo
+            if (obstaculoAtivo) {
+                apagar_obstaculo(&obst);
+                obst.y += obst.direcao;
+                if (obst.y <= MINY + 1 || obst.y + obst.altura >= MAXY) {
+                    obst.direcao = -obst.direcao;
+                }
+                imprimir_obstaculo(&obst);
+            }
+
             printBola(newX, newY);
 
             for (int i = 0; i < qtde_raquete; i++) {
@@ -330,9 +395,9 @@ int main() {
             gettimeofday(&tempoAtual, NULL);
             long tempoPassado = (tempoAtual.tv_sec - tempoInicio.tv_sec);
 
-            //Um buffer chamado mensagem é declarado com um tamanho de 50 caracteres
-            //Dependendo da pontuação dos jogadores, a mensagem correta é formatada e armazenada em mensagem usando snprintf
-            if (jogador1 >= 5 || jogador2 >= 5 || tempoPassado >= TEMPO_MAXIMO) {
+            // Um buffer chamado mensagem é declarado com um tamanho de 50 caracteres
+            // Dependendo da pontuação dos jogadores, a mensagem correta é formatada e armazenada em mensagem usando snprintf
+            if (jogador1 >= pontuacaoMaxima || jogador2 >= pontuacaoMaxima || tempoPassado >= TEMPO_MAXIMO) {
                 char mensagem[50];
                 if (jogador1 > jogador2) {
                     snprintf(mensagem, sizeof(mensagem), "Jogador 1 ganhou!");
