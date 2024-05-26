@@ -54,18 +54,18 @@ void exibirTelaInicial() {
     screenClear();
     screenDrawBorders();
     screenSetColor(WHITE, DARKGRAY);
-    screenGotoxy((MAXX / 2) - 11, MAXY / 2 - 4);
-    printf("  ____    ____  _   _  ____  ");
-    screenGotoxy((MAXX / 2) - 11, MAXY / 2 - 3);
-    printf(" |  __ \\ / __ \\| \\ | |/ __ \\ ");
-    screenGotoxy((MAXX / 2) - 11, MAXY / 2 - 2);
-    printf(" | |__) | |  | |  \\| | | ___");
-    screenGotoxy((MAXX / 2) - 11, MAXY / 2 - 1);
-    printf(" |  ___/| |  | | . ` | ||__ | ");
-    screenGotoxy((MAXX / 2) - 11, MAXY / 2);
-    printf(" | |    | |__| | |\\  | |__| |");
-    screenGotoxy((MAXX / 2) - 11, MAXY / 2 + 1);
-    printf(" |_|     \\____/|_| \\_|\\____/ ");
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 4); // Ajuste de -11 para -15
+    printf(" ____    ____  _   _  ____ ");
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 3); // Ajuste de -11 para -15
+    printf("|  __ \\ / __ \\| \\ | |/ __ \\");
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 2); // Ajuste de -11 para -15
+    printf("| |__) | |  | |  \\| | | ___");
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 1); // Ajuste de -11 para -15
+    printf("|  ___/| |  | | . ` | ||__ |");
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2); // Ajuste de -11 para -15
+    printf("| |    | |__| | |\\  | |__| |");
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 + 1); // Ajuste de -11 para -15
+    printf("|_|     \\____/|_| \\_|\\____/");
 
     screenGotoxy((MAXX / 2) - 5, MAXY / 2 + 3);
     screenSetColor(YELLOW, DARKGRAY);
@@ -112,6 +112,180 @@ int exibirMenuNiveis() {
         }
     }
     return opcao;
+}
+
+// Função para exibir as instruções
+void exibirInstrucoes(int nivel) {
+    screenClear();
+    screenDrawBorders();
+    screenSetColor(WHITE, DARKGRAY);
+
+    switch(nivel) {
+        case 0:
+            screenGotoxy(3, 2);
+            printf("Instruções - Nível Iniciante");
+
+            screenGotoxy(3, 4);
+            printf("Player 1 (Esquerda):");
+            screenGotoxy(3, 5);
+            printf("- Digite 'W' ou 'w' para movimentar a raquete para cima");
+            screenGotoxy(3, 6);
+            printf("- Digite 'S' ou 's' para movimentar a raquete para baixo");
+
+            screenGotoxy(3, 8);
+            printf("Player 2 (Direita):");
+            screenGotoxy(3, 9);
+            printf("- Digite 'O' ou 'o' para movimentar a raquete para cima");
+            screenGotoxy(3, 10);
+            printf("- Digite 'L' ou 'l' para movimentar a raquete para baixo");
+
+            screenGotoxy(3, 12);
+            printf("Especificações:");
+            screenGotoxy(3, 13);
+            printf("- Raquete altura: modo fácil");
+            screenGotoxy(3, 14);
+            printf("- Velocidade da bola: modo fácil");
+            screenGotoxy(3, 15);
+            printf("- Obstáculo: Não");
+
+            screenGotoxy(3, 17);
+            printf("Ganha quem fizer 5 pontos primeiro ou");
+            screenGotoxy(3, 18);
+            printf("tiver mais pontos quando acabar os 90 segundos de cronômetro.");
+
+            screenGotoxy(3, 20);
+            printf("Pressione \"Enter\" para continuar.");
+
+            screenGotoxy(3, 22);
+            printf("Boa sorte.");
+            break;
+
+        case 1:
+            screenGotoxy(3, 2);
+            printf("Instruções - Nível Intermediário");
+
+            screenGotoxy(3, 4);
+            printf("Player 1 (Esquerda):");
+            screenGotoxy(3, 5);
+            printf("- Digite 'W' ou 'w' para movimentar a raquete para cima");
+            screenGotoxy(3, 6);
+            printf("- Digite 'S' ou 's' para movimentar a raquete para baixo");
+
+            screenGotoxy(3, 8);
+            printf("Player 2 (Direita):");
+            screenGotoxy(3, 9);
+            printf("- Digite 'O' ou 'o' para movimentar a raquete para cima");
+            screenGotoxy(3, 10);
+            printf("- Digite 'L' ou 'l' para movimentar a raquete para baixo");
+
+            screenGotoxy(3, 12);
+            printf("Especificações:");
+            screenGotoxy(3, 13);
+            printf("- Raquete altura: modo difícil");
+            screenGotoxy(3, 14);
+            printf("- Velocidade da bola: modo fácil");
+            screenGotoxy(3, 15);
+            printf("- Obstáculo: Não");
+
+            screenGotoxy(3, 17);
+            printf("Ganha quem fizer 5 pontos primeiro ou");
+            screenGotoxy(3, 18);
+            printf("tiver mais pontos quando acabar os 90 segundos de cronômetro.");
+
+            screenGotoxy(3, 20);
+            printf("Pressione \"Enter\" para continuar.");
+
+            screenGotoxy(3, 22);
+            printf("Boa sorte.");
+            break;
+
+        case 2:
+            screenGotoxy(3, 2);
+            printf("Instruções - Nível Avançado");
+
+            screenGotoxy(3, 4);
+            printf("Player 1 (Esquerda):");
+            screenGotoxy(3, 5);
+            printf("- Digite 'W' ou 'w' para movimentar a raquete para cima");
+            screenGotoxy(3, 6);
+            printf("- Digite 'S' ou 's' para movimentar a raquete para baixo");
+
+            screenGotoxy(3, 8);
+            printf("Player 2 (Direita):");
+            screenGotoxy(3, 9);
+            printf("- Digite 'O' ou 'o' para movimentar a raquete para cima");
+            screenGotoxy(3, 10);
+            printf("- Digite 'L' ou 'l' para movimentar a raquete para baixo");
+
+            screenGotoxy(3, 12);
+            printf("Especificações:");
+            screenGotoxy(3, 13);
+            printf("- Raquete altura: modo difícil");
+            screenGotoxy(3, 14);
+            printf("- Velocidade da bola: modo difícil");
+            screenGotoxy(3, 15);
+            printf("- Obstáculo: Não");
+
+            screenGotoxy(3, 17);
+            printf("Ganha quem fizer 5 pontos primeiro ou");
+            screenGotoxy(3, 18);
+            printf("tiver mais pontos quando acabar os 90 segundos de cronômetro.");
+
+            screenGotoxy(3, 20);
+            printf("Pressione \"Enter\" para continuar.");
+
+            screenGotoxy(3, 22);
+            printf("Boa sorte.");
+            break;
+
+        case 3:
+            screenGotoxy(3, 2);
+            printf("Instruções - Nível Expert");
+
+            screenGotoxy(3, 4);
+            printf("Player 1 (Esquerda):");
+            screenGotoxy(3, 5);
+            printf("- Digite 'W' ou 'w' para movimentar a raquete para cima");
+            screenGotoxy(3, 6);
+            printf("- Digite 'S' ou 's' para movimentar a raquete para baixo");
+
+            screenGotoxy(3, 8);
+            printf("Player 2 (Direita):");
+            screenGotoxy(3, 9);
+            printf("- Digite 'O' ou 'o' para movimentar a raquete para cima");
+            screenGotoxy(3, 10);
+            printf("- Digite 'L' ou 'l' para movimentar a raquete para baixo");
+
+            screenGotoxy(3, 12);
+            printf("Especificações:");
+            screenGotoxy(3, 13);
+            printf("- Raquete altura: modo difícil");
+            screenGotoxy(3, 14);
+            printf("- Velocidade da bola: modo difícil");
+            screenGotoxy(3, 15);
+            printf("- Obstáculo: Sim");
+
+            screenGotoxy(3, 17);
+            printf("Ganha quem fizer 10 pontos primeiro ou");
+            screenGotoxy(3, 18);
+            printf("tiver mais pontos quando acabar os 90 segundos de cronômetro.");
+
+            screenGotoxy(3, 20);
+            printf("Pressione \"Enter\" para continuar.");
+
+            screenGotoxy(3, 22);
+            printf("Boa sorte.");
+            break;
+    }
+
+    screenUpdate();
+
+    while (1) {
+        int ch = readch();
+        if (ch == 10) { // Enter
+            break;
+        }
+    }
 }
 
 // Função que movimenta a bola no terminal
@@ -260,6 +434,9 @@ int main() {
 
     // Exibe o menu de níveis
     int nivel = exibirMenuNiveis();
+
+    // Exibe as instruções do nível selecionado
+    exibirInstrucoes(nivel);
 
     // Ajusta configurações baseadas no nível
     int alturaRaquete = 6;
