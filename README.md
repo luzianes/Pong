@@ -10,17 +10,17 @@ O jogo é um projeto para a disciplina de Programação Imperativa e Funcional -
 
 - Jogo de Pong com movimento suave da bola e das raquetes.
 - Animações básicas para os elementos do jogo.
-- Tratamento de colisão entre a bola, raquetes e paredes.
+- Tratamento de colisão entre a bola, raquetes, paredes e obstáculos.
 - Armazenamento e leitura das pontuações mais altas em um arquivo.
 - Uso de estruturas (structs) para os elementos do jogo.
 - Uso de ponteiros e alocação dinâmica de memória.
-- Implementação de uma matriz para representar a tela de jogo.
+- Implementação de uma lista encadeada para armazenar as maiores pontuações.
 
 ## Requisitos
 
 - GCC (ou qualquer outro compilador C)
 - Sistema operacional Unix-like recomendado (Linux, macOS)
-- Biblioteca ncurses para manipulação da tela de comando (opcional, mas recomendado para animações)
+- Biblioteca ncurses para manipulação da tela de comando (opcional, mas recomendado para animações).
 
 
 ## Contato
