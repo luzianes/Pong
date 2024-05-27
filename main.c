@@ -275,7 +275,7 @@ void exibirInstrucoes(int nivel) {
             printf("Pressione \"Enter\" para continuar.");
 
             screenGotoxy(3, 22);
-            printf("Boa sorte.");
+            printf("Boa sorte!");
             break;
 
         case 1:
@@ -314,7 +314,7 @@ void exibirInstrucoes(int nivel) {
             printf("Pressione \"Enter\" para continuar.");
 
             screenGotoxy(3, 22);
-            printf("Boa sorte.");
+            printf("Boa sorte!");
             break;
 
         case 2:
@@ -353,7 +353,7 @@ void exibirInstrucoes(int nivel) {
             printf("Pressione \"Enter\" para continuar.");
 
             screenGotoxy(3, 22);
-            printf("Boa sorte.");
+            printf("Boa sorte!");
             break;
 
         case 3:
@@ -392,9 +392,57 @@ void exibirInstrucoes(int nivel) {
             printf("Pressione \"Enter\" para continuar.");
 
             screenGotoxy(3, 22);
-            printf("Boa sorte.");
+            printf("Boa sorte!");
             break;
     }
+
+    screenUpdate();
+
+    while (1) {
+        int ch = readch();
+        if (ch == 10) { // Enter
+            break;
+        }
+    }
+}
+
+// Função para exibir as instruções do modo single player
+void exibirInstrucoesSinglePlayer() {
+    screenClear();
+    screenDrawBorders();
+    screenSetColor(WHITE, DARKGRAY);
+
+    screenGotoxy(3, 2);
+    printf("Instruções - Modo Single Player");
+
+    screenGotoxy(3, 4);
+    printf("Você (Player) controla a raquete da esquerda:");
+
+    screenGotoxy(3, 5);
+    printf("- Digite 'W' ou 'w' para movimentar a raquete para cima");
+    screenGotoxy(3, 6);
+    printf("- Digite 'S' ou 's' para movimentar a raquete para baixo");
+
+    screenGotoxy(3, 8);
+    printf("O Bot (Adversário) controla a raquete da direita:");
+
+    screenGotoxy(3, 9);
+    printf("- O Bot se moverá automaticamente para rebater a bola.");
+
+    screenGotoxy(3, 11);
+    printf("O tamanho da raquete, velocidade da mola e obstáculos");
+    screenGotoxy(3, 12);
+    printf("estão conforme o nível de dificuldade selecionado.");
+    screenGotoxy(3, 16);
+    printf("Ganha quem fizer 5 pontos primeiro ou");
+    screenGotoxy(3, 17);
+    printf("tiver mais pontos quando acabar os 90 segundos de cronômetro.");
+
+    screenGotoxy(3, 19);
+    printf("Pressione \"Enter\" para continuar.");
+
+    screenGotoxy(3, 21);
+    printf("Boa sorte!");
 
     screenUpdate();
 
