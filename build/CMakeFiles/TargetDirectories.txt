@@ -1,3 +1,0 @@
-/mnt/c/pif/jogo/pong/build/CMakeFiles/pong.dir
-/mnt/c/pif/jogo/pong/build/CMakeFiles/edit_cache.dir
-/mnt/c/pif/jogo/pong/build/CMakeFiles/rebuild_cache.dir

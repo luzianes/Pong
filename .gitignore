@@ -1,0 +1,13 @@
+# Build and cache directories
+/build/
+cmake-build-debug/
+CMakeCache.txt
+CMakeFiles/
+*.o
+*.so
+*.dylib
+*.dll
+*.exe
+*.log
+*.swp
+*.swo

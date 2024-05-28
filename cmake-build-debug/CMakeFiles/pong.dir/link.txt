@@ -1,1 +1,0 @@
-/usr/bin/cc -g CMakeFiles/pong.dir/main.c.o CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o CMakeFiles/pong.dir/cli-lib/src/screen.c.o CMakeFiles/pong.dir/cli-lib/src/timer.c.o -o pong 

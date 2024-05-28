@@ -1,6 +1,0 @@
-# ninja log v5
-52	217	1716325191173473100	CMakeFiles/pong.dir/main.c.o	e52d05d15f0bf7f1
-55	245	1716325191177299200	CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o	535137a4ff1169f2
-61	271	1716325191181007000	CMakeFiles/pong.dir/cli-lib/src/screen.c.o	d1c43ca0ff23395c
-67	291	1716325191191471200	CMakeFiles/pong.dir/cli-lib/src/timer.c.o	94e562510a96502c
-304	787	1716325191744508500	pong	a0f4fa8619f68ee7

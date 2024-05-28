@@ -1,2 +1,0 @@
-Jogador 1: 6
-Jogador 2: 7
