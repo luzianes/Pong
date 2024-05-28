@@ -56,22 +56,22 @@ int jogador2 = 0;
 // Estrutura para armazenar o tempo de início
 struct timeval tempoInicio;
 
-// Função para exibir a tela inicial
+// Função para exibir a tela inicial - nome Pong
 void exibirTelaInicial() {
     screenClear();
     screenDrawBorders();
     screenSetColor(WHITE, DARKGRAY);
-    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 4); // Ajuste de -11 para -15
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 4);
     printf(" ____    ____  _   _  ____ ");
-    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 3); // Ajuste de -11 para -15
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 3);
     printf("|  __ \\ / __ \\| \\ | |/ __ \\");
-    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 2); // Ajuste de -11 para -15
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 2);
     printf("| |__) | |  | |  \\| | | ___");
-    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 1); // Ajuste de -11 para -15
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 - 1);
     printf("|  ___/| |  | | . ` | ||__ |");
-    screenGotoxy((MAXX / 2) - 15, MAXY / 2); // Ajuste de -11 para -15
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2);
     printf("| |    | |__| | |\\  | |__| |");
-    screenGotoxy((MAXX / 2) - 15, MAXY / 2 + 1); // Ajuste de -11 para -15
+    screenGotoxy((MAXX / 2) - 15, MAXY / 2 + 1);
     printf("|_|     \\____/|_| \\_|\\____/");
 
     screenGotoxy((MAXX / 2) - 5, MAXY / 2 + 3);
@@ -89,7 +89,7 @@ void exibirTelaInicial() {
 
 // Função para exibir o menu de número de jogadores
 int exibirMenuJogadores() {
-    const char *opcoes[] = {"Apenas um jogador (1)", "Dois Jogadores (2)"};
+    const char *opcoes[] = {"Apenas um jogador (1)", "Dois Jogadores (2)", "Voltar"};
     int opcao = 0;
 
     while (1) {
@@ -99,7 +99,7 @@ int exibirMenuJogadores() {
         screenSetColor(WHITE, DARKGRAY);
         printf("Quantos jogadores?");
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             screenGotoxy((MAXX / 2) - 12, (MAXY / 2) + i);
             if (i == opcao) {
                 screenSetColor(YELLOW, DARKGRAY);
@@ -116,13 +116,20 @@ int exibirMenuJogadores() {
         if (ch == 10) { // Enter
             break;
         } else if (ch == 'A') {
-            opcao = (opcao > 0) ? opcao - 1 : 1; // Move para cima
+            opcao = (opcao > 0) ? opcao - 1 : 2; // Move para cima, circulando para a última opção
         } else if (ch == 'B') {
-            opcao = (opcao < 1) ? opcao + 1 : 0; // Move para baixo
+            opcao = (opcao < 2) ? opcao + 1 : 0; // Move para baixo, circulando para a primeira opção
         }
     }
+
+    // Ações com base na opção selecionada
+    if (opcao == 2) { // Se a opção selecionada for "Voltar"
+        exibirTelaInicial();
+    }
+
     return opcao;
 }
+
 
 // Menu para 1 jogador (Jogar ou Ranking)
 int exibirMenu1Jogador() {
