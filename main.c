@@ -115,25 +115,19 @@ int exibirMenuJogadores() {
         int ch = readch();
         if (ch == 10) { // Enter
             break;
-        } else if (ch == 'A') {
+        } if (ch == 'A') {
             opcao = (opcao > 0) ? opcao - 1 : 2; // Move para cima, circulando para a última opção
         } else if (ch == 'B') {
             opcao = (opcao < 2) ? opcao + 1 : 0; // Move para baixo, circulando para a primeira opção
         }
     }
 
-    // Ações com base na opção selecionada
-    if (opcao == 2) { // Se a opção selecionada for "Voltar"
-        exibirTelaInicial();
-    }
-
     return opcao;
 }
 
-
 // Menu para 1 jogador (Jogar ou Ranking)
 int exibirMenu1Jogador() {
-    const char *opcoes[] = {"Jogar", "Ranking"};
+    const char *opcoes[] = {"Jogar", "Ranking", "Voltar para o início", "Voltar para jogadores"};
     int opcao = 0;
 
     while (1) {
@@ -143,7 +137,7 @@ int exibirMenu1Jogador() {
         screenSetColor(WHITE, DARKGRAY);
         printf("O que você deseja fazer?");
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 4; i++) {
             screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 2 + i);
             if (i == opcao) {
                 screenSetColor(YELLOW, DARKGRAY);
@@ -160,9 +154,9 @@ int exibirMenu1Jogador() {
         if (ch == 10) { // Enter
             break;
         } else if (ch == 'A') {
-            opcao = (opcao > 0) ? opcao - 1 : 1; // Move para cima
+            opcao = (opcao > 0) ? opcao - 1 : 3; // Move para cima, circulando para a última opção
         } else if (ch == 'B') {
-            opcao = (opcao < 1) ? opcao + 1 : 0; // Move para baixo
+            opcao = (opcao < 3) ? opcao + 1 : 0; // Move para baixo, circulando para a primeira opção
         }
     }
     return opcao;
@@ -246,14 +240,14 @@ void exibirInstrucoes(int nivel) {
             printf("Instruções - Nível Iniciante");
 
             screenGotoxy(3, 4);
-            printf("Player 1 (Esquerda):");
+            printf("Player 1 (Esquerda) ou Single Player:");
             screenGotoxy(3, 5);
             printf("- Digite 'W' ou 'w' para movimentar a raquete para cima");
             screenGotoxy(3, 6);
             printf("- Digite 'S' ou 's' para movimentar a raquete para baixo");
 
             screenGotoxy(3, 8);
-            printf("Player 2 (Direita):");
+            printf("Player 2 (Direita) ou bot:");
             screenGotoxy(3, 9);
             printf("- Digite 'O' ou 'o' para movimentar a raquete para cima");
             screenGotoxy(3, 10);
@@ -285,14 +279,14 @@ void exibirInstrucoes(int nivel) {
             printf("Instruções - Nível Intermediário");
 
             screenGotoxy(3, 4);
-            printf("Player 1 (Esquerda):");
+            printf("Player 1 (Esquerda) ou Single Player:");
             screenGotoxy(3, 5);
             printf("- Digite 'W' ou 'w' para movimentar a raquete para cima");
             screenGotoxy(3, 6);
             printf("- Digite 'S' ou 's' para movimentar a raquete para baixo");
 
             screenGotoxy(3, 8);
-            printf("Player 2 (Direita):");
+            printf("Player 2 (Direita) ou bot:");
             screenGotoxy(3, 9);
             printf("- Digite 'O' ou 'o' para movimentar a raquete para cima");
             screenGotoxy(3, 10);
@@ -324,14 +318,14 @@ void exibirInstrucoes(int nivel) {
             printf("Instruções - Nível Avançado");
 
             screenGotoxy(3, 4);
-            printf("Player 1 (Esquerda):");
+            printf("Player 1 (Esquerda) ou Single Player:");
             screenGotoxy(3, 5);
             printf("- Digite 'W' ou 'w' para movimentar a raquete para cima");
             screenGotoxy(3, 6);
             printf("- Digite 'S' ou 's' para movimentar a raquete para baixo");
 
             screenGotoxy(3, 8);
-            printf("Player 2 (Direita):");
+            printf("Player 2 (Direita) ou bot:");
             screenGotoxy(3, 9);
             printf("- Digite 'O' ou 'o' para movimentar a raquete para cima");
             screenGotoxy(3, 10);
@@ -363,14 +357,14 @@ void exibirInstrucoes(int nivel) {
             printf("Instruções - Nível Expert");
 
             screenGotoxy(3, 4);
-            printf("Player 1 (Esquerda):");
+            printf("Player 1 (Esquerda) ou Single Player:");
             screenGotoxy(3, 5);
             printf("- Digite 'W' ou 'w' para movimentar a raquete para cima");
             screenGotoxy(3, 6);
             printf("- Digite 'S' ou 's' para movimentar a raquete para baixo");
 
             screenGotoxy(3, 8);
-            printf("Player 2 (Direita):");
+            printf("Player 2 (Direita) ou bot:");
             screenGotoxy(3, 9);
             printf("- Digite 'O' ou 'o' para movimentar a raquete para cima");
             screenGotoxy(3, 10);
@@ -701,22 +695,30 @@ int main() {
                 if (nivel == 4) {
                     continue; // Voltar para Menu de 1 Jogador
                 } else {
-                    exibirInstrucoes(nivel);
+                    exibirInstrucoesSinglePlayer();
 
                     // Implementação do jogo para um jogador com bot
-                    int alturaRaquete = 5;
-                    int velocidadeBola = 100;
+                    int alturaRaquete;
+                    int velocidadeBola;
                     int obstaculoAtivo = 0;
                     int pontuacaoMaxima = 5; // Padrão
 
                     if (nivel == 0) { // Iniciante
                         chanceErro = 15;
+                        velocidadeBola = 100;
+                        alturaRaquete = 6;
                     } else if (nivel == 1) { // Intermediário
                         chanceErro = 10;
+                        velocidadeBola = 80;
+                        alturaRaquete = 5;
                     } else if (nivel == 2) { // Avançado
                         chanceErro = 5;
+                        velocidadeBola = 50;
+                        alturaRaquete = 4;
                     } else if (nivel == 3) { // Expert
                         chanceErro = 1;
+                        velocidadeBola = 30;
+                        alturaRaquete = 3;
                         obstaculoAtivo = 1;
                         obst.x = (MAXX - MINX) / 2; // Posição inicial no meio da tela
                         obst.y = 10;                // Posição inicial y
@@ -768,7 +770,6 @@ int main() {
 
                         // Movimenta o bot
                         mover_bot(&rptr[1], y, chanceErro);
-
 
                         // Imprime a nova posição da raquete do bot
                         imprimir_raquete(&rptr[1]);
@@ -877,7 +878,7 @@ int main() {
             alturaRaquete = 4;
             velocidadeBola = 60;
         } else if (nivel == 3) { // Expert
-            alturaRaquete = 4;
+            alturaRaquete = 3;
             velocidadeBola = 60;
             pontuacaoMaxima = 10; // Pontuação máxima para nível Expert
             obstaculoAtivo = 1;
