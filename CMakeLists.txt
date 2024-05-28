@@ -1,5 +1,5 @@
 #Define a versão mínima do CMake
-cmake_minimum_required(VERSION 3.22.1)
+cmake_minimum_required(VERSION 3.16.3)
 
 #Define que o nome do projeto e a linguagem utilizada
 project(pong C)
