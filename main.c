@@ -31,12 +31,14 @@ typedef struct Obstaculo {
     char simbolo;    // símbolo que forma o obstáculo
 } obstaculo;
 
+// REQUISITO 1 - STRUCT
 typedef struct Tempo {
     int minutos;
     int segundos;
     struct Tempo *proximo;
 } Tempo;
 
+// REQUISITO 2 - PONTEIROS
 Tempo *melhoresTempos = NULL;
 
 // Define a posição inicial (x,y) da bola e seus incrementos (+1)
@@ -87,9 +89,8 @@ void exibirTelaInicial() {
     }
 }
 
-// Função para exibir o menu de número de jogadores
 int exibirMenuJogadores() {
-    const char *opcoes[] = {"Apenas um jogador (1)", "Dois Jogadores (2)", "Voltar"};
+    const char *opcoes[] = {"Apenas um jogador (1)", "Dois Jogadores (2)"};
     int opcao = 0;
 
     while (1) {
@@ -99,7 +100,7 @@ int exibirMenuJogadores() {
         screenSetColor(WHITE, DARKGRAY);
         printf("Quantos jogadores?");
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             screenGotoxy((MAXX / 2) - 12, (MAXY / 2) + i);
             if (i == opcao) {
                 screenSetColor(YELLOW, DARKGRAY);
@@ -116,9 +117,9 @@ int exibirMenuJogadores() {
         if (ch == 10) { // Enter
             break;
         } if (ch == 'A') {
-            opcao = (opcao > 0) ? opcao - 1 : 2; // Move para cima, circulando para a última opção
+            opcao = (opcao > 0) ? opcao - 1 : 2; // Move para cima
         } else if (ch == 'B') {
-            opcao = (opcao < 2) ? opcao + 1 : 0; // Move para baixo, circulando para a primeira opção
+            opcao = (opcao < 2) ? opcao + 1 : 0; // Move para baixo
         }
     }
 
@@ -127,7 +128,7 @@ int exibirMenuJogadores() {
 
 // Menu para 1 jogador (Jogar ou Ranking)
 int exibirMenu1Jogador() {
-    const char *opcoes[] = {"Jogar", "Ranking", "Voltar para o início", "Voltar para jogadores"};
+    const char *opcoes[] = {"Jogar", "Ranking"};
     int opcao = 0;
 
     while (1) {
@@ -137,7 +138,7 @@ int exibirMenu1Jogador() {
         screenSetColor(WHITE, DARKGRAY);
         printf("O que você deseja fazer?");
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 2; i++) {
             screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 2 + i);
             if (i == opcao) {
                 screenSetColor(YELLOW, DARKGRAY);
@@ -153,10 +154,10 @@ int exibirMenu1Jogador() {
         int ch = readch();
         if (ch == 10) { // Enter
             break;
-        } else if (ch == 'A') {
-            opcao = (opcao > 0) ? opcao - 1 : 3; // Move para cima, circulando para a última opção
+        } if (ch == 'A') {
+            opcao = (opcao > 0) ? opcao - 1 : 2; // Move para cima
         } else if (ch == 'B') {
-            opcao = (opcao < 3) ? opcao + 1 : 0; // Move para baixo, circulando para a primeira opção
+            opcao = (opcao < 3) ? opcao + 1 : 0; // Move para baixo
         }
     }
     return opcao;
@@ -164,13 +165,13 @@ int exibirMenu1Jogador() {
 
 // Menu para selecionar o nível de 1 jogador
 int exibirMenuNiveis1() {
-    const char *niveis[] = {"Iniciante", "Intermediário", "Avançado", "Expert", "Voltar para Menu de 1 Jogador"};
+    const char *niveis[] = {"Iniciante", "Intermediário", "Avançado", "Expert"};
     int opcao = 0;
 
     while (1) {
         screenClear();
         screenDrawBorders();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 2 + i); // Ajuste a posição para a esquerda
             if (i == opcao) {
                 screenSetColor(YELLOW, DARKGRAY);
@@ -186,7 +187,7 @@ int exibirMenuNiveis1() {
         int ch = readch();
         if (ch == 10) { // Enter
             break;
-        } else if (ch == 'A') {
+        } if (ch == 'A') {
             opcao = (opcao > 0) ? opcao - 1 : 4; // Move para cima
         } else if (ch == 'B') {
             opcao = (opcao < 4) ? opcao + 1 : 0; // Move para baixo
@@ -219,8 +220,8 @@ int exibirMenuNiveis2() {
         int ch = readch();
         if (ch == 10) { // Enter
             break;
-        } else if (ch == 'A') {
-            opcao = (opcao > 0) ? opcao - 1 : 3; // Move para cima
+        } if (ch == 'A') {
+            opcao = (opcao > 0) ? opcao - 1 : 4; // Move para cima
         } else if (ch == 'B') {
             opcao = (opcao < 3) ? opcao + 1 : 0; // Move para baixo
         }
@@ -429,9 +430,9 @@ void exibirInstrucoesSinglePlayer() {
     printf("O tamanho da raquete, velocidade da mola e obstáculos");
     screenGotoxy(3, 12);
     printf("estão conforme o nível de dificuldade selecionado.");
-    screenGotoxy(3, 16);
+    screenGotoxy(3, 15);
     printf("Ganha quem fizer 5 pontos primeiro ou");
-    screenGotoxy(3, 17);
+    screenGotoxy(3, 16);
     printf("tiver mais pontos quando acabar os 90 segundos de cronômetro.");
 
     screenGotoxy(3, 19);
@@ -463,6 +464,7 @@ void printBola(int nextX, int nextY) {
 
 // Inicializa a raquete com seus parâmetros
 void iniciar_raquete(raquete *rptr, int x, int y, int largura, int altura, char simbolo) {
+    // REQUISITO 2 - PONTEIROS
     rptr->x = x;
     rptr->y = y;
     rptr->largura = largura;
@@ -470,6 +472,7 @@ void iniciar_raquete(raquete *rptr, int x, int y, int largura, int altura, char 
     rptr->simbolo = simbolo;
 }
 
+// REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
 // Função para imprimir a raquete na tela
 void imprimir_raquete(raquete *rptr) {
     screenSetColor(MAGENTA, DARKGRAY);
@@ -479,6 +482,7 @@ void imprimir_raquete(raquete *rptr) {
     }
 }
 
+// REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
 // Função para apagar a raquete da tela
 void apagar_raquete(raquete *rptr) {
     for (int i = 0; i < rptr->altura; i++) {
@@ -487,6 +491,7 @@ void apagar_raquete(raquete *rptr) {
     }
 }
 
+// REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
 // Função para imprimir o obstáculo na tela
 void imprimir_obstaculo(obstaculo *optr) {
     screenSetColor(RED, DARKGRAY);
@@ -496,6 +501,7 @@ void imprimir_obstaculo(obstaculo *optr) {
     }
 }
 
+// REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
 // Função para apagar o obstáculo da tela
 void apagar_obstaculo(obstaculo *optr) {
     for (int i = 0; i < optr->altura; i++) {
@@ -504,6 +510,7 @@ void apagar_obstaculo(obstaculo *optr) {
     }
 }
 
+// REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
 // Função para verificar se houve colisão com a raquete
 int verificar_colisao(raquete *rptr, int Ox, int Oy) {
     for (int i = 0; i < rptr->altura; i++) {
@@ -516,6 +523,7 @@ int verificar_colisao(raquete *rptr, int Ox, int Oy) {
     return 0; // Não houve colisão com a raquete
 }
 
+// REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
 // Função para verificar se houve colisão com o obstáculo
 int verificar_colisao_obstaculo(obstaculo *optr, int Ox, int Oy) {
     for (int i = 0; i < optr->altura; i++) {
@@ -539,15 +547,18 @@ void desenharLinhaPontilhada() {
 
 // Função para inserir um novo tempo na lista
 void inserirTempo(int minutos, int segundos) {
+    // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA
     Tempo *novo = (Tempo *)malloc(sizeof(Tempo));
     novo->minutos = minutos;
     novo->segundos = segundos;
     novo->proximo = NULL;
 
+    // REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
     if (melhoresTempos == NULL || (melhoresTempos->minutos > minutos || (melhoresTempos->minutos == minutos && melhoresTempos->segundos > segundos))) {
+        // REQUISITO 4 - LISTA ENCADEADA
         novo->proximo = melhoresTempos;
         melhoresTempos = novo;
-    } else {
+    } else { // REQUISITO 4 - LISTA ENCADEADA
         Tempo *atual = melhoresTempos;
         while (atual->proximo != NULL && (atual->proximo->minutos < minutos || (atual->proximo->minutos == minutos && atual->proximo->segundos < segundos))) {
             atual = atual->proximo;
@@ -559,6 +570,8 @@ void inserirTempo(int minutos, int segundos) {
 
 void mover_bot(raquete *rptr, int bolaY, int chanceErro) {
     int erro = rand() % 100; // Gera um número entre 0 e 99
+
+    // REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
     if (erro >= chanceErro) { // chanceErro% de chance de cometer um erro
         if (bolaY < rptr->y && rptr->y > MINY + 1) {
             rptr->y--;
@@ -575,8 +588,7 @@ void mover_bot(raquete *rptr, int bolaY, int chanceErro) {
     }
 }
 
-// REQUISITO 2 - PONTEIROS
-// REQUISITO 6 - ESCRITA ARQUIVO
+// REQUISITOS 2 e 5 - PONTEIROS E ESCRITA ARQUIVOS
 // Função para salvar a pontuação dos jogadores em um arquivo
 void salvar_pontuacao(int jogador1, int jogador2) {
     FILE *file = fopen("pontuacao.txt", "w");
@@ -599,6 +611,7 @@ void exibirPontuacao() {
 }
 
 // Função para calcular o tempo restante e exibir no canto superior central
+// REQUISITO 1 - STRUCTS
 void exibirTimer() {
     struct timeval tempoAtual;
     gettimeofday(&tempoAtual, NULL);
@@ -623,6 +636,7 @@ void limparEstadoDoJogo() {
     incY = 1;
 }
 
+// REQUISITO 2 - PONTEIROS
 void exibirResultado(const char *mensagem) {
     screenClear();
     screenSetColor(RED, DARKGRAY);
@@ -644,6 +658,7 @@ void exibirResultado(const char *mensagem) {
     }
 }
 
+// REQUISITO 4 - LISTA ENCADEADA
 void exibirRanking() {
     screenClear();
     screenDrawBorders();
@@ -727,7 +742,7 @@ int main() {
                         obst.simbolo = '#';         // Símbolo do obstáculo
                     }
 
-                    // REQUISITO 3 - ALOCAÇÃO DE MEMÓRIA
+                    // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA
                     // Aloca memória para as raquetes
                     raquete *rptr = (raquete *)malloc(qtde_raquete * sizeof(raquete));
 
@@ -740,9 +755,11 @@ int main() {
                     printBola(x, y);
 
                     // Inicia as raquetes com a posição (x,y), largura, altura e símbolo
+                    // REQUISITO 2 - PONTEIROS
                     iniciar_raquete(&rptr[0], 4, 10, 1, alturaRaquete, '|');  // Raquete esquerda
                     iniciar_raquete(&rptr[1], 76, 10, 1, alturaRaquete, '|'); // Raquete direita
 
+                    // REQUISITOS 1 E 2 - STRUCTS E PONTEIROS
                     while (ch != 27) // Jogo ativo enquanto não teclar ESC
                     {
                         // Verifica a entrada do usuário (tecla clicada)
@@ -829,6 +846,7 @@ int main() {
                             screenUpdate();
 
                             // Verifica condições de vitória
+                            // REQUISITOS 1 E 2 - STRUCTS E PONTEIROS
                             struct timeval tempoAtual;
                             gettimeofday(&tempoAtual, NULL);
                             long tempoPassado = (tempoAtual.tv_sec - tempoInicio.tv_sec);
@@ -856,13 +874,14 @@ int main() {
 
                     salvar_pontuacao(jogador1, jogador2); // Salva a pontuação ao final do jogo no arquivo pontuacao.txt (\build)
 
+                    // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA (liberando)
                     free(rptr);
                 }
             } else if (opcao1Jogador == 1) { // Ranking
                 exibirRanking();
             }
         }
-    } else { // Se for 2 jogadores
+    } if (jogadores == 1) { // Se for 2 jogadores
         int nivel = exibirMenuNiveis2();
         exibirInstrucoes(nivel);
 
@@ -884,12 +903,12 @@ int main() {
             obstaculoAtivo = 1;
             obst.x = (MAXX - MINX) / 2; // Posição inicial no meio da tela
             obst.y = 10;                // Posição inicial y
-            obst.altura = 5;            // Altura do obstáculo para nível Expert
+            obst.altura = 5;
             obst.direcao = 1;           // Começa se movendo para baixo
-            obst.simbolo = '#';         // Símbolo do obstáculo
+            obst.simbolo = '#';
         }
 
-        // REQUISITO 3 - ALOCAÇÃO DE MEMÓRIA
+        // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA
         // Aloca memória para as raquetes
         raquete *rptr = (raquete *)malloc(qtde_raquete * sizeof(raquete));
 
@@ -902,9 +921,11 @@ int main() {
         printBola(x, y);
 
         // Inicia as raquetes com a posição (x,y), largura, altura e símbolo
+        // REQUISITO 2 - PONTEIROS
         iniciar_raquete(&rptr[0], 4, 10, 1, alturaRaquete, '|');  // Raquete esquerda
         iniciar_raquete(&rptr[1], 76, 10, 1, alturaRaquete, '|'); // Raquete direita
 
+        // REQUISITOS 1 E 2 - STRUCTS E PONTEIROS
         while (ch != 27) // Jogo ativo enquanto não teclar ESC
         {
             // Verifica a entrada do usuário (tecla clicada)
@@ -1019,7 +1040,11 @@ int main() {
 
         salvar_pontuacao(jogador1, jogador2); // Salva a pontuação ao final do jogo no arquivo pontuacao.txt (\build)
 
+        // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA (liberando)
         free(rptr);
+    } else
+    {
+        exibirTelaInicial();
     }
 
     keyboardDestroy();
