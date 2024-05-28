@@ -1,0 +1,3 @@
+/mnt/c/Users/aguia/CLionProjects/Pong/make-build-debug/CMakeFiles/pong.dir
+/mnt/c/Users/aguia/CLionProjects/Pong/make-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/Users/aguia/CLionProjects/Pong/make-build-debug/CMakeFiles/rebuild_cache.dir
