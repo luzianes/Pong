@@ -8,10 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/keyboard.c" "CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o" "gcc" "CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o.d"
-  "/mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/screen.c" "CMakeFiles/pong.dir/cli-lib/src/screen.c.o" "gcc" "CMakeFiles/pong.dir/cli-lib/src/screen.c.o.d"
-  "/mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/timer.c" "CMakeFiles/pong.dir/cli-lib/src/timer.c.o" "gcc" "CMakeFiles/pong.dir/cli-lib/src/timer.c.o.d"
-  "/mnt/c/Users/lisa_/ClionProjects/Pong/main.c" "CMakeFiles/pong.dir/main.c.o" "gcc" "CMakeFiles/pong.dir/main.c.o.d"
+  "/mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/src/keyboard.c" "CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o" "gcc" "CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o.d"
+  "/mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/src/screen.c" "CMakeFiles/pong.dir/cli-lib/src/screen.c.o" "gcc" "CMakeFiles/pong.dir/cli-lib/src/screen.c.o.d"
+  "/mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/src/timer.c" "CMakeFiles/pong.dir/cli-lib/src/timer.c.o" "gcc" "CMakeFiles/pong.dir/cli-lib/src/timer.c.o.d"
+  "/mnt/c/Users/aguia/CLionProjects/Pong/main.c" "CMakeFiles/pong.dir/main.c.o" "gcc" "CMakeFiles/pong.dir/main.c.o.d"
   )
 
 # Targets to which this target links.

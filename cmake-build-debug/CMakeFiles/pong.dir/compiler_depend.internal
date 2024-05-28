@@ -3,6 +3,7 @@
 
 CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o
  /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/keyboard.c
+ /mnt/c/Users/lisa_/CLionProjects/Pong/cli-lib/src/keyboard.c
  /usr/include/stdc-predef.h
  /usr/include/termios.h
  /usr/include/features.h
@@ -35,12 +36,13 @@ CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/keyboard.h
+ /mnt/c/Users/lisa_/CLionProjects/Pong/cli-lib/include/keyboard.h
 
 CMakeFiles/pong.dir/cli-lib/src/screen.c.o
  /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/screen.c
+ /mnt/c/Users/lisa_/CLionProjects/Pong/cli-lib/src/screen.c
  /usr/include/stdc-predef.h
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/screen.h
+ /mnt/c/Users/lisa_/CLionProjects/Pong/cli-lib/include/screen.h
  /usr/include/stdio.h
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
  /usr/include/features.h
@@ -68,8 +70,9 @@ CMakeFiles/pong.dir/cli-lib/src/screen.c.o
 
 CMakeFiles/pong.dir/cli-lib/src/timer.c.o
  /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/timer.c
+ /mnt/c/Users/lisa_/CLionProjects/Pong/cli-lib/src/timer.c
  /usr/include/stdc-predef.h
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/timer.h
+ /mnt/c/Users/lisa_/CLionProjects/Pong/cli-lib/include/timer.h
  /usr/include/x86_64-linux-gnu/sys/time.h
  /usr/include/features.h
  /usr/include/features-time64.h
@@ -107,6 +110,7 @@ CMakeFiles/pong.dir/cli-lib/src/timer.c.o
 
 CMakeFiles/pong.dir/main.c.o
  /mnt/c/Users/lisa_/ClionProjects/Pong/main.c
+ /mnt/c/Users/lisa_/CLionProjects/Pong/main.c
  /usr/include/stdc-predef.h
  /usr/include/stdio.h
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
@@ -172,7 +176,7 @@ CMakeFiles/pong.dir/main.c.o
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h
  /usr/include/x86_64-linux-gnu/sys/time.h
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/screen.h
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/keyboard.h
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/timer.h
+ /mnt/c/Users/lisa_/CLionProjects/Pong/cli-lib/include/screen.h
+ /mnt/c/Users/lisa_/CLionProjects/Pong/cli-lib/include/keyboard.h
+ /mnt/c/Users/lisa_/CLionProjects/Pong/cli-lib/include/timer.h
 

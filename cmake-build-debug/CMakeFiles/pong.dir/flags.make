@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include
+C_INCLUDES = -I/mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/include
 
 C_FLAGS = -g -std=gnu99
 

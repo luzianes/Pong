@@ -1,5 +1,5 @@
 CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o: \
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/keyboard.c \
+ /mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/src/keyboard.c \
  /usr/include/stdc-predef.h /usr/include/termios.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -29,4 +29,4 @@ CMakeFiles/pong.dir/cli-lib/src/keyboard.c.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/keyboard.h
+ /mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/include/keyboard.h

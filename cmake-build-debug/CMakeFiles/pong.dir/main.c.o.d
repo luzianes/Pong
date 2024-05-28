@@ -1,5 +1,5 @@
 CMakeFiles/pong.dir/main.c.o: \
- /mnt/c/Users/lisa_/ClionProjects/Pong/main.c /usr/include/stdc-predef.h \
+ /mnt/c/Users/aguia/CLionProjects/Pong/main.c /usr/include/stdc-predef.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -58,6 +58,6 @@ CMakeFiles/pong.dir/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/x86_64-linux-gnu/sys/time.h \
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/screen.h \
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/keyboard.h \
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/timer.h
+ /mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/include/screen.h \
+ /mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/include/keyboard.h \
+ /mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/include/timer.h

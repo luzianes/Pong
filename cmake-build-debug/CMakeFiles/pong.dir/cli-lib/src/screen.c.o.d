@@ -1,7 +1,7 @@
 CMakeFiles/pong.dir/cli-lib/src/screen.c.o: \
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/src/screen.c \
+ /mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/src/screen.c \
  /usr/include/stdc-predef.h \
- /mnt/c/Users/lisa_/ClionProjects/Pong/cli-lib/include/screen.h \
+ /mnt/c/Users/aguia/CLionProjects/Pong/cli-lib/include/screen.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
