@@ -53,13 +53,8 @@ int jogador2 = 0;
 // Define o tempo máximo em segundos (2 minutos)
 #define TEMPO_MAXIMO 150
 
-// Variável para definir a frequência de movimento do bot em milissegundos
-int bot_move_frequency; // Tempo em milissegundos para o bot se mover
-
 // Estrutura para armazenar o tempo de início
 struct timeval tempoInicio;
-
-struct timeval ultimoMovimentoBot;
 
 // Função para exibir a tela inicial
 void exibirTelaInicial() {
@@ -579,18 +574,6 @@ void mover_bot(raquete *rptr, int bolaY, int chanceErro) {
     }
 }
 
-int tempoParaMoverBot() {
-    struct timeval agora;
-    gettimeofday(&agora, NULL);
-
-    long tempoPassado = (agora.tv_sec - ultimoMovimentoBot.tv_sec) * 1000 + (agora.tv_usec - ultimoMovimentoBot.tv_usec) / 1000;
-    if (tempoPassado >= bot_move_frequency) {
-        ultimoMovimentoBot = agora;
-        return 1;
-    }
-    return 0;
-}
-
 // REQUISITO 2 - PONTEIROS
 // REQUISITO 6 - ESCRITA ARQUIVO
 // Função para salvar a pontuação dos jogadores em um arquivo
@@ -628,6 +611,15 @@ void exibirTimer() {
     screenSetColor(GREEN, DARKGRAY);
     screenGotoxy((MAXX / 2) - 3, MINY);  // Ajuste a posição para que o ":" fique alinhado com a linha pontilhada
     printf("%02ld:%02ld", tempoRestante / 60, tempoRestante % 60);
+}
+
+void limparEstadoDoJogo() {
+    jogador1 = 0;
+    jogador2 = 0;
+    x = 34;
+    y = 12;
+    incX = 1;
+    incY = 1;
 }
 
 void exibirResultado(const char *mensagem) {
@@ -679,15 +671,6 @@ void exibirRanking() {
     }
 }
 
-void limparEstadoDoJogo() {
-    jogador1 = 0;
-    jogador2 = 0;
-    x = 34;
-    y = 12;
-    incX = 1;
-    incY = 1;
-}
-
 int main() {
     static int ch = 0;
     obstaculo obst;  // Declaração do obstáculo para o modo Expert
@@ -718,7 +701,6 @@ int main() {
                     int velocidadeBola = 100;
                     int obstaculoAtivo = 0;
                     int pontuacaoMaxima = 5; // Padrão
-                    bot_move_frequency = 10; // Bot se move a cada 300ms
 
                     if (nivel == 0) { // Iniciante
                         chanceErro = 15;
@@ -774,18 +756,17 @@ int main() {
                             imprimir_raquete(&rptr[0]);
                         }
 
+                        // Apaga a raquete do bot
+                        apagar_raquete(&rptr[1]);
+
+                        // Movimenta o bot
+                        mover_bot(&rptr[1], y, chanceErro);
+
+
+                        // Imprime a nova posição da raquete do bot
+                        imprimir_raquete(&rptr[1]);
+
                         if (timerTimeOver() == 1) {
-                            // Apaga a raquete do bot
-                            apagar_raquete(&rptr[1]);
-
-                            // Verifica se é tempo de mover o bot
-                            if (tempoParaMoverBot()) {
-                                mover_bot(&rptr[1], y, chanceErro);
-                            }
-
-                            // Imprime a nova posição da raquete do bot
-                            imprimir_raquete(&rptr[1]);
-
                             // Verifica se houve colisão com a moldura
                             int newX = x + incX;
                             int newY = y + incY;
@@ -837,7 +818,6 @@ int main() {
                             }
 
                             exibirPontuacao();
-
                             screenUpdate();
 
                             // Verifica condições de vitória
