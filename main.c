@@ -760,19 +760,19 @@ int main() {
                         int pontuacaoMaxima = 5; // Padrão
 
                         if (nivel == 0) { // Iniciante
-                            chanceErro = 40;
+                            chanceErro = 50;
                             velocidadeBola = 70;
                             alturaRaquete = 6;
                         } else if (nivel == 1) { // Intermediário
-                            chanceErro = 25;
+                            chanceErro = 40;
                             velocidadeBola = 70;
                             alturaRaquete = 4;
                         } else if (nivel == 2) { // Avançado
-                            chanceErro = 10;
+                            chanceErro = 30;
                             velocidadeBola = 60;
                             alturaRaquete = 4;
                         } else if (nivel == 3) { // Expert
-                            chanceErro = 5;
+                            chanceErro = 20;
                             velocidadeBola = 60;
                             alturaRaquete = 3;
                             obstaculoAtivo = 1;
