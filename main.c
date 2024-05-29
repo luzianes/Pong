@@ -682,9 +682,7 @@ void exibirResultado(const char *mensagem) {
         int ch = readch();
         if (ch == 10) { // Enter
             limparEstadoDoJogo(); // Reseta o estado do jogo
-            screenClear(); // Limpa a tela antes de voltar à tela inicial
-            exibirTelaInicial(); // Exibe a tela inicial
-            break;
+            break; // Sai do loop de exibição de resultado
         }
     }
 }
@@ -727,358 +725,363 @@ int main() {
 
     keyboardInit();
 
-    // Exibe a tela inicial
-    exibirTelaInicial();
+    while (1) {
+        // Exibe a tela inicial
+        exibirTelaInicial();
 
-    // Exibe o menu de número de jogadores
-    int jogadores = exibirMenuJogadores();
+        // Exibe o menu de número de jogadores
+        int jogadores = exibirMenuJogadores();
 
-    int opcao1Jogador;
+        int opcao1Jogador;
 
-    if (jogadores == 0) { // Se for 1 jogador
-        while (1) {
-            opcao1Jogador = exibirMenu1Jogador();
-            if (opcao1Jogador == 0) { // Jogar
-                int nivel = exibirMenuNiveis1();
-                if (nivel == 4) {
-                    continue; // Voltar para Menu de 1 Jogador
-                } else {
-                    exibirInstrucoesSinglePlayer();
+        if (jogadores == 0) { // Se for 1 jogador
+            while (1) {
+                opcao1Jogador = exibirMenu1Jogador();
+                if (opcao1Jogador == 0) { // Jogar
+                    int nivel = exibirMenuNiveis1();
+                    if (nivel == 4) {
+                        continue; // Voltar para Menu de 1 Jogador
+                    } else {
+                        exibirInstrucoesSinglePlayer();
 
-                    // Implementação do jogo para um jogador com bot
-                    int alturaRaquete;
-                    int velocidadeBola;
-                    int obstaculoAtivo = 0;
-                    int pontuacaoMaxima = 5; // Padrão
+                        // Implementação do jogo para um jogador com bot
+                        int alturaRaquete;
+                        int velocidadeBola;
+                        int obstaculoAtivo = 0;
+                        int pontuacaoMaxima = 5; // Padrão
 
-                    if (nivel == 0) { // Iniciante
-                        chanceErro = 40;
-                        velocidadeBola = 70;
-                        alturaRaquete = 6;
-                    } else if (nivel == 1) { // Intermediário
-                        chanceErro = 25;
-                        velocidadeBola = 70;
-                        alturaRaquete = 4;
-                    } else if (nivel == 2) { // Avançado
-                        chanceErro = 10;
-                        velocidadeBola = 60;
-                        alturaRaquete = 4;
-                    } else if (nivel == 3) { // Expert
-                        chanceErro = 5;
-                        velocidadeBola = 60;
-                        alturaRaquete = 3;
-                        obstaculoAtivo = 1;
-                        obst.x = (MAXX - MINX) / 2; // Posição inicial no meio da tela
-                        obst.y = 10;                // Posição inicial y
-                        obst.altura = 5;            // Altura do obstáculo para nível Expert
-                        obst.direcao = 1;           // Começa se movendo para baixo
-                        obst.simbolo = '#';         // Símbolo do obstáculo
-                    }
-
-                    // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA
-                    // Aloca memória para as raquetes
-                    raquete *rptr = (raquete *)malloc(qtde_raquete * sizeof(raquete));
-
-                    screenInit(1);
-                    desenharLinhaPontilhada();
-                    timerInit(velocidadeBola);
-
-                    gettimeofday(&tempoInicio, NULL); // Obtém o tempo de início
-
-                    printBola(x, y);
-
-                    // Inicia as raquetes com a posição (x,y), largura, altura e símbolo
-                    // REQUISITO 2 - PONTEIROS
-                    iniciar_raquete(&rptr[0], 4, 10, 1, alturaRaquete, '|');  // Raquete esquerda
-                    iniciar_raquete(&rptr[1], 76, 10, 1, alturaRaquete, '|'); // Raquete direita
-
-                    // REQUISITOS 1 E 2 - STRUCTS E PONTEIROS
-                    while (ch != 27) // Jogo ativo enquanto não teclar ESC
-                    {
-                        // Verifica a entrada do usuário (tecla clicada)
-                        if (keyhit()) {
-                            ch = readch();
-
-                            // Apaga a raquete atual
-                            apagar_raquete(&rptr[0]);
-                            apagar_raquete(&rptr[1]);
-
-                            // Movimenta a raquete esquerda com 'w' ou 'W' e 's' ou 'S'
-                            if ((ch == 'w' || ch == 'W') && rptr[0].y > MINY + 1) {
-                                rptr[0].y--;
-                            }
-                            if ((ch == 's' || ch == 'S') && rptr[0].y < MAXY - rptr[0].altura) {
-                                rptr[0].y++;
-                            }
-
-                            // Imprime a nova posição da raquete do jogador
-                            imprimir_raquete(&rptr[0]);
+                        if (nivel == 0) { // Iniciante
+                            chanceErro = 40;
+                            velocidadeBola = 70;
+                            alturaRaquete = 6;
+                        } else if (nivel == 1) { // Intermediário
+                            chanceErro = 25;
+                            velocidadeBola = 70;
+                            alturaRaquete = 4;
+                        } else if (nivel == 2) { // Avançado
+                            chanceErro = 10;
+                            velocidadeBola = 60;
+                            alturaRaquete = 4;
+                        } else if (nivel == 3) { // Expert
+                            chanceErro = 5;
+                            velocidadeBola = 60;
+                            alturaRaquete = 3;
+                            obstaculoAtivo = 1;
+                            obst.x = (MAXX - MINX) / 2; // Posição inicial no meio da tela
+                            obst.y = 10;                // Posição inicial y
+                            obst.altura = 5;            // Altura do obstáculo para nível Expert
+                            obst.direcao = 1;           // Começa se movendo para baixo
+                            obst.simbolo = '#';         // Símbolo do obstáculo
                         }
 
-                        // Apaga a raquete do bot
-                        apagar_raquete(&rptr[1]);
+                        // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA
+                        // Aloca memória para as raquetes
+                        raquete *rptr = (raquete *) malloc(qtde_raquete * sizeof(raquete));
 
-                        // Movimenta o bot
-                        mover_bot(&rptr[1], y, chanceErro);
+                        screenInit(1);
+                        desenharLinhaPontilhada();
+                        timerInit(velocidadeBola);
 
-                        // Imprime a nova posição da raquete do bot
-                        imprimir_raquete(&rptr[1]);
+                        gettimeofday(&tempoInicio, NULL); // Obtém o tempo de início
 
-                        if (timerTimeOver() == 1) {
-                            // Verifica se houve colisão com a moldura
-                            int newX = x + incX;
-                            int newY = y + incY;
+                        printBola(x, y);
 
-                            // Verifica se a bola atingiu as paredes laterais (pontuação do adversário)
-                            if (newX >= (MAXX - strlen("O") - 1)) {
-                                jogador1++; // Jogador 1 pontua
-                                newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
-                                newY = (MAXY - MINY) / 2;
-                                incX = -incX; // Inverte a direção da bola
-                            } else if (newX <= MINX + 1) {
-                                jogador2++; // Bot pontua
-                                newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
-                                newY = (MAXY - MINY) / 2;
-                                incX = -incX; // Inverte a direção da bola
+                        // Inicia as raquetes com a posição (x,y), largura, altura e símbolo
+                        // REQUISITO 2 - PONTEIROS
+                        iniciar_raquete(&rptr[0], 4, 10, 1, alturaRaquete, '|');  // Raquete esquerda
+                        iniciar_raquete(&rptr[1], 76, 10, 1, alturaRaquete, '|'); // Raquete direita
+
+                        // REQUISITOS 1 E 2 - STRUCTS E PONTEIROS
+                        while (ch != 27) // Jogo ativo enquanto não teclar ESC
+                        {
+                            // Verifica a entrada do usuário (tecla clicada)
+                            if (keyhit()) {
+                                ch = readch();
+
+                                // Apaga a raquete atual
+                                apagar_raquete(&rptr[0]);
+                                apagar_raquete(&rptr[1]);
+
+                                // Movimenta a raquete esquerda com 'w' ou 'W' e 's' ou 'S'
+                                if ((ch == 'w' || ch == 'W') && rptr[0].y > MINY + 1) {
+                                    rptr[0].y--;
+                                }
+                                if ((ch == 's' || ch == 'S') && rptr[0].y < MAXY - rptr[0].altura) {
+                                    rptr[0].y++;
+                                }
+
+                                // Imprime a nova posição da raquete do jogador
+                                imprimir_raquete(&rptr[0]);
                             }
 
-                            if (newY >= MAXY - 1 || newY <= MINY + 1) {
-                                incY = -incY;
-                            }
+                            // Apaga a raquete do bot
+                            apagar_raquete(&rptr[1]);
 
-                            // Verifica se houve colisão com as raquetes
-                            for (int i = 0; i < qtde_raquete; i++) {
-                                if (verificar_colisao(&rptr[i], newX, newY)) {
+                            // Movimenta o bot
+                            mover_bot(&rptr[1], y, chanceErro);
+
+                            // Imprime a nova posição da raquete do bot
+                            imprimir_raquete(&rptr[1]);
+
+                            if (timerTimeOver() == 1) {
+                                // Verifica se houve colisão com a moldura
+                                int newX = x + incX;
+                                int newY = y + incY;
+
+                                // Verifica se a bola atingiu as paredes laterais (pontuação do adversário)
+                                if (newX >= (MAXX - strlen("O") - 1)) {
+                                    jogador1++; // Jogador 1 pontua
+                                    newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
+                                    newY = (MAXY - MINY) / 2;
+                                    incX = -incX; // Inverte a direção da bola
+                                } else if (newX <= MINX + 1) {
+                                    jogador2++; // Bot pontua
+                                    newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
+                                    newY = (MAXY - MINY) / 2;
+                                    incX = -incX; // Inverte a direção da bola
+                                }
+
+                                if (newY >= MAXY - 1 || newY <= MINY + 1) {
+                                    incY = -incY;
+                                }
+
+                                // Verifica se houve colisão com as raquetes
+                                for (int i = 0; i < qtde_raquete; i++) {
+                                    if (verificar_colisao(&rptr[i], newX, newY)) {
+                                        incX = -incX;
+                                        break;
+                                    }
+                                }
+
+                                // Verifica se houve colisão com o obstáculo
+                                if (obstaculoAtivo && verificar_colisao_obstaculo(&obst, newX, newY)) {
                                     incX = -incX;
+                                }
+
+                                // Atualiza a posição do obstáculo se ativo
+                                if (obstaculoAtivo) {
+                                    apagar_obstaculo(&obst);
+                                    obst.y += obst.direcao;
+                                    if (obst.y <= MINY + 1 || obst.y + obst.altura >= MAXY) {
+                                        obst.direcao = -obst.direcao;
+                                    }
+                                    imprimir_obstaculo(&obst);
+                                }
+
+                                printBola(newX, newY);
+
+                                for (int i = 0; i < qtde_raquete; i++) {
+                                    imprimir_raquete(&rptr[i]);
+                                }
+
+                                exibirPontuacao();
+                                screenUpdate();
+
+                                // Verifica condições de vitória
+                                // REQUISITOS 1 E 2 - STRUCTS E PONTEIROS
+                                struct timeval tempoAtual;
+                                gettimeofday(&tempoAtual, NULL);
+                                long tempoPassado = (tempoAtual.tv_sec - tempoInicio.tv_sec);
+
+                                // Um buffer chamado mensagem é declarado com um tamanho de 50 caracteres
+                                // Dependendo da pontuação dos jogadores, a mensagem correta é formatada e armazenada em mensagem usando snprintf
+                                if (jogador1 >= pontuacaoMaxima || jogador2 >= pontuacaoMaxima) {
+                                    char mensagem[50];
+                                    if (jogador1 > jogador2) {
+                                        snprintf(mensagem, sizeof(mensagem), "Jogador 1 ganhou!");
+                                        if (nivel == 3) { // Se for nível Expert
+                                            inserirTempo(tempoPassado / 60,
+                                                         tempoPassado % 60); // Insere o tempo na lista
+                                            salvarTempos(); // Salva os tempos no arquivo
+                                        }
+                                    } else if (jogador2 > jogador1) {
+                                        snprintf(mensagem, sizeof(mensagem), "Bot ganhou!");
+                                    } else {
+                                        snprintf(mensagem, sizeof(mensagem), "Empate!");
+                                    }
+
+                                    exibirResultado(mensagem);
                                     break;
                                 }
                             }
+                        }
 
-                            // Verifica se houve colisão com o obstáculo
-                            if (obstaculoAtivo && verificar_colisao_obstaculo(&obst, newX, newY)) {
-                                incX = -incX;
-                            }
+                        salvar_pontuacao(jogador1,
+                                         jogador2); // Salva a pontuação ao final do jogo no arquivo pontuacao.txt (\build)
 
-                            // Atualiza a posição do obstáculo se ativo
-                            if (obstaculoAtivo) {
-                                apagar_obstaculo(&obst);
-                                obst.y += obst.direcao;
-                                if (obst.y <= MINY + 1 || obst.y + obst.altura >= MAXY) {
-                                    obst.direcao = -obst.direcao;
-                                }
-                                imprimir_obstaculo(&obst);
-                            }
+                        // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA (liberando)
+                        free(rptr);
+                    }
+                } else if (opcao1Jogador == 1) { // Ranking
+                    exibirRanking();
+                }
+            }
+        }
+        if (jogadores == 1) { // Se for 2 jogadores
+            int nivel = exibirMenuNiveis2();
+            exibirInstrucoes(nivel);
 
-                            printBola(newX, newY);
+            // Ajusta configurações baseadas no nível
+            int alturaRaquete = 6;
+            int velocidadeBola = 70;
+            int obstaculoAtivo = 0;
+            int pontuacaoMaxima = 5; // Padrão
 
-                            for (int i = 0; i < qtde_raquete; i++) {
-                                imprimir_raquete(&rptr[i]);
-                            }
+            if (nivel == 1) { // Intermediário
+                alturaRaquete = 4;
+            } else if (nivel == 2) { // Avançado
+                alturaRaquete = 4;
+                velocidadeBola = 60;
+            } else if (nivel == 3) { // Expert
+                alturaRaquete = 3;
+                velocidadeBola = 60;
+                pontuacaoMaxima = 10; // Pontuação máxima para nível Expert
+                obstaculoAtivo = 1;
+                obst.x = (MAXX - MINX) / 2; // Posição inicial no meio da tela
+                obst.y = 10;                // Posição inicial y
+                obst.altura = 5;
+                obst.direcao = 1;           // Começa se movendo para baixo
+                obst.simbolo = '#';
+            }
 
-                            exibirPontuacao();
-                            screenUpdate();
+            // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA
+            // Aloca memória para as raquetes
+            raquete *rptr = (raquete *) malloc(qtde_raquete * sizeof(raquete));
 
-                            // Verifica condições de vitória
-                            // REQUISITOS 1 E 2 - STRUCTS E PONTEIROS
-                            struct timeval tempoAtual;
-                            gettimeofday(&tempoAtual, NULL);
-                            long tempoPassado = (tempoAtual.tv_sec - tempoInicio.tv_sec);
+            screenInit(1);
+            desenharLinhaPontilhada();
+            timerInit(velocidadeBola);
 
-                            // Um buffer chamado mensagem é declarado com um tamanho de 50 caracteres
-                            // Dependendo da pontuação dos jogadores, a mensagem correta é formatada e armazenada em mensagem usando snprintf
-                            if (jogador1 >= pontuacaoMaxima || jogador2 >= pontuacaoMaxima) {
-                                char mensagem[50];
-                                if (jogador1 > jogador2) {
-                                    snprintf(mensagem, sizeof(mensagem), "Jogador 1 ganhou!");
-                                    if (nivel == 3) { // Se for nível Expert
-                                        inserirTempo(tempoPassado / 60, tempoPassado % 60); // Insere o tempo na lista
-                                        salvarTempos(); // Salva os tempos no arquivo
-                                    }
-                                } else if (jogador2 > jogador1) {
-                                    snprintf(mensagem, sizeof(mensagem), "Bot ganhou!");
-                                } else {
-                                    snprintf(mensagem, sizeof(mensagem), "Empate!");
-                                }
+            gettimeofday(&tempoInicio, NULL); // Obtém o tempo de início
 
-                                exibirResultado(mensagem);
-                                break;
-                            }
+            printBola(x, y);
+
+            // Inicia as raquetes com a posição (x,y), largura, altura e símbolo
+            // REQUISITO 2 - PONTEIROS
+            iniciar_raquete(&rptr[0], 4, 10, 1, alturaRaquete, '|');  // Raquete esquerda
+            iniciar_raquete(&rptr[1], 76, 10, 1, alturaRaquete, '|'); // Raquete direita
+
+            // REQUISITOS 1 E 2 - STRUCTS E PONTEIROS
+            while (ch != 27) // Jogo ativo enquanto não teclar ESC
+            {
+                // Verifica a entrada do usuário (tecla clicada)
+                if (keyhit()) {
+                    ch = readch();
+
+                    // Apaga a raquete atual
+                    apagar_raquete(&rptr[0]);
+                    apagar_raquete(&rptr[1]);
+
+                    // Movimenta a raquete esquerda com 'w' ou 'W' e 's' ou 'S'
+                    if ((ch == 'w' || ch == 'W') && rptr[0].y > MINY + 1) {
+                        rptr[0].y--;
+                    }
+                    if ((ch == 's' || ch == 'S') && rptr[0].y < MAXY - rptr[0].altura) {
+                        rptr[0].y++;
+                    }
+
+                    // Movimenta a raquete direita com 'o' ou 'O' e 'l' ou 'L'
+                    if ((ch == 'o' || ch == 'O') && rptr[1].y > MINY + 1) {
+                        rptr[1].y--;
+                    }
+                    if ((ch == 'l' || ch == 'L') && rptr[1].y < MAXY - rptr[1].altura) {
+                        rptr[1].y++;
+                    }
+
+                    // Imprime a nova posição da raquete
+                    imprimir_raquete(&rptr[0]);
+                    imprimir_raquete(&rptr[1]);
+
+                    screenUpdate();
+                }
+
+                if (timerTimeOver() == 1) {
+                    // Verifica se houve colisão com a moldura
+                    int newX = x + incX;
+                    int newY = y + incY;
+
+                    // Verifica se a bola atingiu as paredes laterais (pontuação do adversário)
+                    if (newX >= (MAXX - strlen("O") - 1)) {
+                        jogador1++; // Jogador 1 pontua
+                        newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
+                        newY = (MAXY - MINY) / 2;
+                        incX = -incX; // Inverte a direção da bola
+                    } else if (newX <= MINX + 1) {
+                        jogador2++; // Jogador 2 pontua
+                        newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
+                        newY = (MAXY - MINY) / 2;
+                        incX = -incX; // Inverte a direção da bola
+                    }
+
+                    if (newY >= MAXY - 1 || newY <= MINY + 1) {
+                        incY = -incY;
+                    }
+
+                    // Verifica se houve colisão com as raquetes
+                    for (int i = 0; i < qtde_raquete; i++) {
+                        if (verificar_colisao(&rptr[i], newX, newY)) {
+                            incX = -incX;
+                            break;
                         }
                     }
 
-                    salvar_pontuacao(jogador1, jogador2); // Salva a pontuação ao final do jogo no arquivo pontuacao.txt (\build)
-
-                    // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA (liberando)
-                    free(rptr);
-                }
-            } else if (opcao1Jogador == 1) { // Ranking
-                exibirRanking();
-            }
-        }
-    } if (jogadores == 1) { // Se for 2 jogadores
-        int nivel = exibirMenuNiveis2();
-        exibirInstrucoes(nivel);
-
-        // Ajusta configurações baseadas no nível
-        int alturaRaquete = 6;
-        int velocidadeBola = 70;
-        int obstaculoAtivo = 0;
-        int pontuacaoMaxima = 5; // Padrão
-
-        if (nivel == 1) { // Intermediário
-            alturaRaquete = 4;
-        } else if (nivel == 2) { // Avançado
-            alturaRaquete = 4;
-            velocidadeBola = 60;
-        } else if (nivel == 3) { // Expert
-            alturaRaquete = 3;
-            velocidadeBola = 60;
-            pontuacaoMaxima = 10; // Pontuação máxima para nível Expert
-            obstaculoAtivo = 1;
-            obst.x = (MAXX - MINX) / 2; // Posição inicial no meio da tela
-            obst.y = 10;                // Posição inicial y
-            obst.altura = 5;
-            obst.direcao = 1;           // Começa se movendo para baixo
-            obst.simbolo = '#';
-        }
-
-        // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA
-        // Aloca memória para as raquetes
-        raquete *rptr = (raquete *)malloc(qtde_raquete * sizeof(raquete));
-
-        screenInit(1);
-        desenharLinhaPontilhada();
-        timerInit(velocidadeBola);
-
-        gettimeofday(&tempoInicio, NULL); // Obtém o tempo de início
-
-        printBola(x, y);
-
-        // Inicia as raquetes com a posição (x,y), largura, altura e símbolo
-        // REQUISITO 2 - PONTEIROS
-        iniciar_raquete(&rptr[0], 4, 10, 1, alturaRaquete, '|');  // Raquete esquerda
-        iniciar_raquete(&rptr[1], 76, 10, 1, alturaRaquete, '|'); // Raquete direita
-
-        // REQUISITOS 1 E 2 - STRUCTS E PONTEIROS
-        while (ch != 27) // Jogo ativo enquanto não teclar ESC
-        {
-            // Verifica a entrada do usuário (tecla clicada)
-            if (keyhit()) {
-                ch = readch();
-
-                // Apaga a raquete atual
-                apagar_raquete(&rptr[0]);
-                apagar_raquete(&rptr[1]);
-
-                // Movimenta a raquete esquerda com 'w' ou 'W' e 's' ou 'S'
-                if ((ch == 'w' || ch == 'W') && rptr[0].y > MINY + 1) {
-                    rptr[0].y--;
-                }
-                if ((ch == 's' || ch == 'S') && rptr[0].y < MAXY - rptr[0].altura) {
-                    rptr[0].y++;
-                }
-
-                // Movimenta a raquete direita com 'o' ou 'O' e 'l' ou 'L'
-                if ((ch == 'o' || ch == 'O') && rptr[1].y > MINY + 1) {
-                    rptr[1].y--;
-                }
-                if ((ch == 'l' || ch == 'L') && rptr[1].y < MAXY - rptr[1].altura) {
-                    rptr[1].y++;
-                }
-
-                // Imprime a nova posição da raquete
-                imprimir_raquete(&rptr[0]);
-                imprimir_raquete(&rptr[1]);
-
-                screenUpdate();
-            }
-
-            if (timerTimeOver() == 1) {
-                // Verifica se houve colisão com a moldura
-                int newX = x + incX;
-                int newY = y + incY;
-
-                // Verifica se a bola atingiu as paredes laterais (pontuação do adversário)
-                if (newX >= (MAXX - strlen("O") - 1)) {
-                    jogador1++; // Jogador 1 pontua
-                    newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
-                    newY = (MAXY - MINY) / 2;
-                    incX = -incX; // Inverte a direção da bola
-                } else if (newX <= MINX + 1) {
-                    jogador2++; // Jogador 2 pontua
-                    newX = (MAXX - MINX) / 2; // Reinicializa a posição da bola
-                    newY = (MAXY - MINY) / 2;
-                    incX = -incX; // Inverte a direção da bola
-                }
-
-                if (newY >= MAXY - 1 || newY <= MINY + 1) {
-                    incY = -incY;
-                }
-
-                // Verifica se houve colisão com as raquetes
-                for (int i = 0; i < qtde_raquete; i++) {
-                    if (verificar_colisao(&rptr[i], newX, newY)) {
+                    // Verifica se houve colisão com o obstáculo
+                    if (obstaculoAtivo && verificar_colisao_obstaculo(&obst, newX, newY)) {
                         incX = -incX;
+                    }
+
+                    // Atualiza a posição do obstáculo se ativo
+                    if (obstaculoAtivo) {
+                        apagar_obstaculo(&obst);
+                        obst.y += obst.direcao;
+                        if (obst.y <= MINY + 1 || obst.y + obst.altura >= MAXY) {
+                            obst.direcao = -obst.direcao;
+                        }
+                        imprimir_obstaculo(&obst);
+                    }
+
+                    printBola(newX, newY);
+
+                    for (int i = 0; i < qtde_raquete; i++) {
+                        imprimir_raquete(&rptr[i]);
+                    }
+
+                    exibirPontuacao();
+                    exibirTimer();
+
+                    screenUpdate();
+
+                    // Verifica condições de vitória
+                    struct timeval tempoAtual;
+                    gettimeofday(&tempoAtual, NULL);
+                    long tempoPassado = (tempoAtual.tv_sec - tempoInicio.tv_sec);
+
+                    // Um buffer chamado mensagem é declarado com um tamanho de 50 caracteres
+                    // Dependendo da pontuação dos jogadores, a mensagem correta é formatada e armazenada em mensagem usando snprintf
+                    if (jogador1 >= pontuacaoMaxima || jogador2 >= pontuacaoMaxima || tempoPassado >= TEMPO_MAXIMO) {
+                        char mensagem[50];
+                        if (jogador1 > jogador2) {
+                            snprintf(mensagem, sizeof(mensagem), "Jogador 1 ganhou!");
+                        } else if (jogador2 > jogador1) {
+                            snprintf(mensagem, sizeof(mensagem), "Jogador 2 ganhou!");
+                        } else {
+                            snprintf(mensagem, sizeof(mensagem), "Empate!");
+                        }
+
+                        exibirResultado(mensagem);
                         break;
                     }
                 }
-
-                // Verifica se houve colisão com o obstáculo
-                if (obstaculoAtivo && verificar_colisao_obstaculo(&obst, newX, newY)) {
-                    incX = -incX;
-                }
-
-                // Atualiza a posição do obstáculo se ativo
-                if (obstaculoAtivo) {
-                    apagar_obstaculo(&obst);
-                    obst.y += obst.direcao;
-                    if (obst.y <= MINY + 1 || obst.y + obst.altura >= MAXY) {
-                        obst.direcao = -obst.direcao;
-                    }
-                    imprimir_obstaculo(&obst);
-                }
-
-                printBola(newX, newY);
-
-                for (int i = 0; i < qtde_raquete; i++) {
-                    imprimir_raquete(&rptr[i]);
-                }
-
-                exibirPontuacao();
-                exibirTimer();
-
-                screenUpdate();
-
-                // Verifica condições de vitória
-                struct timeval tempoAtual;
-                gettimeofday(&tempoAtual, NULL);
-                long tempoPassado = (tempoAtual.tv_sec - tempoInicio.tv_sec);
-
-                // Um buffer chamado mensagem é declarado com um tamanho de 50 caracteres
-                // Dependendo da pontuação dos jogadores, a mensagem correta é formatada e armazenada em mensagem usando snprintf
-                if (jogador1 >= pontuacaoMaxima || jogador2 >= pontuacaoMaxima || tempoPassado >= TEMPO_MAXIMO) {
-                    char mensagem[50];
-                    if (jogador1 > jogador2) {
-                        snprintf(mensagem, sizeof(mensagem), "Jogador 1 ganhou!");
-                    } else if (jogador2 > jogador1) {
-                        snprintf(mensagem, sizeof(mensagem), "Jogador 2 ganhou!");
-                    } else {
-                        snprintf(mensagem, sizeof(mensagem), "Empate!");
-                    }
-
-                    exibirResultado(mensagem);
-                    break;
-                }
             }
+
+            salvar_pontuacao(jogador1,
+                             jogador2); // Salva a pontuação ao final do jogo no arquivo pontuacao.txt (\build)
+
+            // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA (liberando)
+            free(rptr);
+        } else {
+            exibirTelaInicial();
         }
-
-        salvar_pontuacao(jogador1, jogador2); // Salva a pontuação ao final do jogo no arquivo pontuacao.txt (\build)
-
-        // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA (liberando)
-        free(rptr);
-    } else
-    {
-        exibirTelaInicial();
     }
 
     keyboardDestroy();
