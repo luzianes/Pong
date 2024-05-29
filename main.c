@@ -89,6 +89,7 @@ void exibirTelaInicial() {
     }
 }
 
+// REQUISITO 2 - PONTEIROS
 int exibirMenuJogadores() {
     const char *opcoes[] = {"Apenas um jogador (1)", "Dois Jogadores (2)"};
     int opcao = 0;
@@ -96,7 +97,7 @@ int exibirMenuJogadores() {
     while (1) {
         screenClear();
         screenDrawBorders();
-        screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 2); // Ajuste a posição para a esquerda e mais para baixo
+        screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 2);
         screenSetColor(WHITE, DARKGRAY);
         printf("Quantos jogadores?");
 
@@ -126,6 +127,7 @@ int exibirMenuJogadores() {
     return opcao;
 }
 
+// REQUISITO 2 - PONTEIROS
 // Menu para 1 jogador (Jogar ou Ranking)
 int exibirMenu1Jogador() {
     const char *opcoes[] = {"Jogar", "Ranking"};
@@ -134,7 +136,7 @@ int exibirMenu1Jogador() {
     while (1) {
         screenClear();
         screenDrawBorders();
-        screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 4); // Ajuste a posição para a esquerda e mais para baixo
+        screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 4);
         screenSetColor(WHITE, DARKGRAY);
         printf("O que você deseja fazer?");
 
@@ -163,6 +165,7 @@ int exibirMenu1Jogador() {
     return opcao;
 }
 
+// REQUISITO 2 - PONTEIROS
 // Menu para selecionar o nível de 1 jogador
 int exibirMenuNiveis1() {
     const char *niveis[] = {"Iniciante", "Intermediário", "Avançado", "Expert"};
@@ -172,7 +175,7 @@ int exibirMenuNiveis1() {
         screenClear();
         screenDrawBorders();
         for (int i = 0; i < 4; i++) {
-            screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 2 + i); // Ajuste a posição para a esquerda
+            screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 2 + i);
             if (i == opcao) {
                 screenSetColor(YELLOW, DARKGRAY);
                 printf("▶ %s", niveis[i]);
@@ -196,6 +199,7 @@ int exibirMenuNiveis1() {
     return opcao;
 }
 
+// REQUISITO 2 - PONTEIROS
 // Menu para selecionar o nível de 2 jogadores
 int exibirMenuNiveis2() {
     const char *niveis[] = {"Iniciante", "Intermediário", "Avançado", "Expert"};
@@ -205,7 +209,7 @@ int exibirMenuNiveis2() {
         screenClear();
         screenDrawBorders();
         for (int i = 0; i < 4; i++) {
-            screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 2 + i); // Ajuste a posição para a esquerda
+            screenGotoxy((MAXX / 2) - 12, (MAXY / 2) - 2 + i);
             if (i == opcao) {
                 screenSetColor(YELLOW, DARKGRAY);
                 printf("▶ %s", niveis[i]);
@@ -460,9 +464,9 @@ void printBola(int nextX, int nextY) {
     printf("●");  // Usando a bolinha Unicode
 }
 
+// REQUISITO 2 - PONTEIROS
 // Inicializa a raquete com seus parâmetros
 void iniciar_raquete(raquete *rptr, int x, int y, int largura, int altura, char simbolo) {
-    // REQUISITO 2 - PONTEIROS
     rptr->x = x;
     rptr->y = y;
     rptr->largura = largura;
@@ -543,6 +547,7 @@ void desenharLinhaPontilhada() {
     }
 }
 
+// REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
 // Função para inserir um novo tempo na lista
 void inserirTempo(int minutos, int segundos) {
     // Verifica se o tempo já existe na lista
@@ -572,6 +577,7 @@ void inserirTempo(int minutos, int segundos) {
     }
 }
 
+// REQUISITOS 5 - ESCREVER ARQUIVO
 void salvarTempos() {
     FILE *file = fopen("melhores_tempos.txt", "w");
     if (file != NULL) {
@@ -586,6 +592,7 @@ void salvarTempos() {
     }
 }
 
+// REQUISITOS 5 - LER ARQUIVO
 void carregarPontuacoes() {
     FILE *file = fopen("melhores_tempos.txt", "r");
     if (file != NULL) {
@@ -654,7 +661,7 @@ void exibirTimer() {
     }
 
     screenSetColor(GREEN, DARKGRAY);
-    screenGotoxy((MAXX / 2) - 3, MINY);  // Ajuste a posição para que o ":" fique alinhado com a linha pontilhada
+    screenGotoxy((MAXX / 2) - 3, MINY);
     printf("%02ld:%02ld", tempoRestante / 60, tempoRestante % 60);
 }
 
@@ -692,14 +699,14 @@ void exibirRanking() {
     screenClear();
     screenDrawBorders();
     screenSetColor(WHITE, DARKGRAY);
-    screenGotoxy((MAXX / 2) - 20, 5); // Ajuste a posição mais para baixo e à esquerda
+    screenGotoxy((MAXX / 2) - 20, 5);
     printf("Melhores Tempos no Expert");
 
     carregarPontuacoes();  // Carrega os tempos do arquivo
 
     Tempo *atual = melhoresTempos;
     int pos = 1;
-    int yPos = 7; // Ajuste a posição inicial mais para baixo
+    int yPos = 7;
     while (atual != NULL && pos <= 10) {
         screenGotoxy((MAXX / 2) - 20, yPos++);
         printf("%d. %02d:%02d", pos++, atual->minutos, atual->segundos);
