@@ -427,7 +427,7 @@ void exibirInstrucoesSinglePlayer() {
     printf("- O Bot se moverá automaticamente para rebater a bola.");
 
     screenGotoxy(3, 11);
-    printf("O tamanho da raquete, velocidade da mola e obstáculos");
+    printf("O tamanho da raquete, velocidade da bola e obstáculos");
     screenGotoxy(3, 12);
     printf("estão conforme o nível de dificuldade selecionado.");
     screenGotoxy(3, 15);
