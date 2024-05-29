@@ -602,7 +602,9 @@ void carregarPontuacoes() {
         }
         fclose(file);
     } else {
-        printf("Erro ao abrir o arquivo de melhores tempos!\n");
+        screenGotoxy((MAXX / 2) - (strlen("Ainda não há recordes!") / 2), MAXY / 2);
+        printf("Ainda não há recordes!\n");
+        screenUpdate();
     }
 }
 
@@ -700,7 +702,7 @@ void exibirRanking() {
     screenDrawBorders();
     screenSetColor(WHITE, DARKGRAY);
     screenGotoxy((MAXX / 2) - 20, 5);
-    printf("Melhores Tempos no Expert");
+    printf("Melhores Tempos no Expert\n");
 
     carregarPontuacoes();  // Carrega os tempos do arquivo
 
@@ -713,8 +715,8 @@ void exibirRanking() {
         atual = atual->proximo;
     }
 
-    screenGotoxy((MAXX / 2) - 20, yPos + 2);
-    printf("Pressione \"Enter\" para voltar.");
+    screenGotoxy((MAXX / 2) - (strlen("Pressione 'Enter' para voltar.") / 2), MAXY / 2 + 6);
+    printf("Pressione \"Enter\" para voltar.\n");
     screenUpdate();
 
     while (1) {
