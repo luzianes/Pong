@@ -431,9 +431,7 @@ void exibirInstrucoesSinglePlayer() {
     screenGotoxy(3, 12);
     printf("estão conforme o nível de dificuldade selecionado.");
     screenGotoxy(3, 15);
-    printf("Ganha quem fizer 5 pontos primeiro ou");
-    screenGotoxy(3, 16);
-    printf("tiver mais pontos quando acabar os 90 segundos de cronômetro.");
+    printf("Ganha quem fizer 5 pontos primeiro");
 
     screenGotoxy(3, 19);
     printf("Pressione \"Enter\" para continuar.");
@@ -547,24 +545,57 @@ void desenharLinhaPontilhada() {
 
 // Função para inserir um novo tempo na lista
 void inserirTempo(int minutos, int segundos) {
-    // REQUISITO 3 - ALOCAÇÃO DINÂMICA DE MEMÓRIA
+    // Verifica se o tempo já existe na lista
+    Tempo *atual = melhoresTempos;
+    while (atual != NULL) {
+        if (atual->minutos == minutos && atual->segundos == segundos) {
+            return; // O tempo já existe, não insere duplicado
+        }
+        atual = atual->proximo;
+    }
+
     Tempo *novo = (Tempo *)malloc(sizeof(Tempo));
     novo->minutos = minutos;
     novo->segundos = segundos;
     novo->proximo = NULL;
 
-    // REQUISITOS 1 e 2 - STRUCTS E PONTEIROS
     if (melhoresTempos == NULL || (melhoresTempos->minutos > minutos || (melhoresTempos->minutos == minutos && melhoresTempos->segundos > segundos))) {
-        // REQUISITO 4 - LISTA ENCADEADA
         novo->proximo = melhoresTempos;
         melhoresTempos = novo;
-    } else { // REQUISITO 4 - LISTA ENCADEADA
+    } else {
         Tempo *atual = melhoresTempos;
         while (atual->proximo != NULL && (atual->proximo->minutos < minutos || (atual->proximo->minutos == minutos && atual->proximo->segundos < segundos))) {
             atual = atual->proximo;
         }
         novo->proximo = atual->proximo;
         atual->proximo = novo;
+    }
+}
+
+void salvarTempos() {
+    FILE *file = fopen("melhores_tempos.txt", "w");
+    if (file != NULL) {
+        Tempo *atual = melhoresTempos;
+        while (atual != NULL) {
+            fprintf(file, "%02d:%02d\n", atual->minutos, atual->segundos);
+            atual = atual->proximo;
+        }
+        fclose(file);
+    } else {
+        printf("Erro ao abrir o arquivo de melhores tempos para escrita!\n");
+    }
+}
+
+void carregarPontuacoes() {
+    FILE *file = fopen("melhores_tempos.txt", "r");
+    if (file != NULL) {
+        int minutos, segundos;
+        while (fscanf(file, "%d:%d", &minutos, &segundos) == 2) {
+            inserirTempo(minutos, segundos);  // Insere o tempo na lista
+        }
+        fclose(file);
+    } else {
+        printf("Erro ao abrir o arquivo de melhores tempos!\n");
     }
 }
 
@@ -663,19 +694,21 @@ void exibirRanking() {
     screenClear();
     screenDrawBorders();
     screenSetColor(WHITE, DARKGRAY);
-    screenGotoxy((MAXX / 2) - 12, 2); // Ajustado mais para a esquerda
+    screenGotoxy((MAXX / 2) - 20, 5); // Ajuste a posição mais para baixo e à esquerda
     printf("Melhores Tempos no Expert");
+
+    carregarPontuacoes();  // Carrega os tempos do arquivo
 
     Tempo *atual = melhoresTempos;
     int pos = 1;
-    int yPos = 4;
+    int yPos = 7; // Ajuste a posição inicial mais para baixo
     while (atual != NULL && pos <= 10) {
-        screenGotoxy((MAXX / 2) - 12, yPos++); // Ajustado mais para a esquerda
+        screenGotoxy((MAXX / 2) - 20, yPos++);
         printf("%d. %02d:%02d", pos++, atual->minutos, atual->segundos);
         atual = atual->proximo;
     }
 
-    screenGotoxy((MAXX / 2) - 12, yPos + 2); // Ajustado mais para a esquerda
+    screenGotoxy((MAXX / 2) - 20, yPos + 2);
     printf("Pressione \"Enter\" para voltar.");
     screenUpdate();
 
@@ -719,20 +752,20 @@ int main() {
                     int pontuacaoMaxima = 5; // Padrão
 
                     if (nivel == 0) { // Iniciante
-                        chanceErro = 15;
-                        velocidadeBola = 100;
+                        chanceErro = 40;
+                        velocidadeBola = 70;
                         alturaRaquete = 6;
                     } else if (nivel == 1) { // Intermediário
-                        chanceErro = 10;
-                        velocidadeBola = 80;
-                        alturaRaquete = 5;
+                        chanceErro = 25;
+                        velocidadeBola = 70;
+                        alturaRaquete = 4;
                     } else if (nivel == 2) { // Avançado
-                        chanceErro = 5;
-                        velocidadeBola = 50;
+                        chanceErro = 10;
+                        velocidadeBola = 60;
                         alturaRaquete = 4;
                     } else if (nivel == 3) { // Expert
-                        chanceErro = 1;
-                        velocidadeBola = 30;
+                        chanceErro = 5;
+                        velocidadeBola = 60;
                         alturaRaquete = 3;
                         obstaculoAtivo = 1;
                         obst.x = (MAXX - MINX) / 2; // Posição inicial no meio da tela
@@ -859,6 +892,7 @@ int main() {
                                     snprintf(mensagem, sizeof(mensagem), "Jogador 1 ganhou!");
                                     if (nivel == 3) { // Se for nível Expert
                                         inserirTempo(tempoPassado / 60, tempoPassado % 60); // Insere o tempo na lista
+                                        salvarTempos(); // Salva os tempos no arquivo
                                     }
                                 } else if (jogador2 > jogador1) {
                                     snprintf(mensagem, sizeof(mensagem), "Bot ganhou!");
